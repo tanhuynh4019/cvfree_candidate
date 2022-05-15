@@ -1,39 +1,46 @@
 <template>
-  <v-app id="inspire">
-    <v-app-bar app color="#004D40" height="70">
-      <!-- <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon> -->
-
-      <v-spacer>
-        <v-container>
-          <v-row>
-            <v-col cols="3">
-              <img
-                src="https://templates.hibootstrap.com/jecto/default/assets/img/logo-three.png"
-              />
-            </v-col>
-            <v-col cols="9"> Menu </v-col>
-          </v-row>
-        </v-container>
-      </v-spacer>
-
-      <v-responsive max-width="300">
-        <div>Login/ Signup <v-btn>Tìm ứng viên</v-btn></div>
-      </v-responsive>
-    </v-app-bar>
-
-    <v-navigation-drawer v-model="drawer" fixed temporary>
-      <!--  -->
-    </v-navigation-drawer>
+  <v-app id="inspire" v-resize="onResize">
+    <Header :website="website" />
 
     <v-main class="grey lighten-2">
-      <router-view />
+      <router-view :website="website" />
     </v-main>
   </v-app>
 </template>
 
 <script>
+import Header from './components/Header.vue'
 export default {
-  data: () => ({ drawer: null }),
+  data() {
+    return {
+      website: {
+        srcLogo: 'https://templates.hibootstrap.com/jecto/default/assets/img/logo-three.png',
+        banner: {
+          textMain: 'Chúng tôi sẽ giúp bạn tìm',
+          textSub: 'được công việc mong muốn của mình',
+          textSub_v1: 'Người dùng đã đăng ký',
+          textSub_v2: 'Nhà tuyển dụng toàn cầu',
+          textSub_v3: 'Công việc có sẵn',
+          iconInputSeach_v1: 'mdi-magnify',
+          iconInputSeach_v2: 'mdi-drag',
+          iconInputSeach_v3: 'mdi-map-marker-outline',
+          textBtnSeach: 'Tìm việc',
+          srcImageRight: 'https://templates.hibootstrap.com/jecto/default/assets/img/home-three/banner-main.png'
+        },
+        color: {
+          yellowSubColor: {
+            color: '#FFF176'
+          },
+          tealMain: {
+            color: '#004D40'
+          }
+        }
+      },
+    }
+  },
+  components: {
+    Header
+  }
 };
 </script>
 
