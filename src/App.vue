@@ -31,12 +31,16 @@ export default {
         job: {
           titleSubGood: 'Việc làm được chọn lọc hàng đầu',
           titleMainGood: 'Việc làm tốt nhất',
+          titleSub: 'Tất cả việc làm',
+          titleMain: 'Việc làm chọn lọc',
           textAll: 'Rất nhiều công việc công nghệ hàng đầu đang chờ đợi bạn.',
           linkTextAll: 'Duyệt qua tất cả các công việc'
         },
         carrer: {
           titleSub: 'Top nghành nghề',
           titleMain: 'Các công việc chất lượng',
+          textAll: 'Công việc đang chờ bạn',
+          linkTextAll: 'Tất cả nghành nghề',
         },
         pa: {
           system: {

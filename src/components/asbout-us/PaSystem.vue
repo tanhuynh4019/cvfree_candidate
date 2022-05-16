@@ -21,11 +21,11 @@
                         <div class="mt-10">
                             <v-row>
                                 <v-col cols="6" md="4" lg="4">
-                                    <v-btn depressed x-large :color="website.color.redMain.color" dark class="w-100">
+                                    <v-btn depressed height="60" :color="website.color.redMain.color" dark class="w-100">
                                         {{ website.pa.system.textBtn_1 }}</v-btn>
                                 </v-col>
                                 <v-col cols="6" md="4" lg="4">
-                                    <v-btn depressed x-large :color="website.color.redMain.color" dark
+                                    <v-btn depressed height="60" :color="website.color.redMain.color" dark
                                         class="ml-2 w-100">{{ website.pa.system.textBtn_2 }}</v-btn>
                                 </v-col>
                             </v-row>

@@ -13,7 +13,7 @@
             <div class="p-3">
                 <v-row>
                     <v-col cols="12" sm="6" md="4" lg="2" v-for="carrer in carrers" class="animation-hover" :key="carrer.name">
-                        <v-card color="#FFEBEE" height="100%">
+                        <v-card color="#FFEBEE" height="100%" link>
                             <div class="p-2">
                                 <center class="mt-5">
                                     <img width="150" height="200"
@@ -37,6 +37,9 @@
                         </v-card>
                     </v-col>
                 </v-row>
+                <p class="mt-10 text-center">
+                    {{website.carrer.textAll}} <u :style="website.color.redMain">{{website.carrer.linkTextAll}}</u>
+                </p>
             </div>
         </div>
     </div>
