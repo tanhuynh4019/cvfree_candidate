@@ -3,23 +3,37 @@
         <v-row :class="!isImageBannerRight ? '' : 'mt-10'" style="margin: -24px 0px;">
             <v-col cols="12" lg="6">
                 <div class="mt-10">
-                    <h1>{{ website.banner.textMain }} <span :style="website.color.yellowSubColor">{{
-                            website.banner.textSub
-                    }}</span></h1>
+                    <h1 :style="isMobile ? 'font-size: 40px' : ''">{{ website.banner.textMain }} <span
+                            :style="website.color.yellowSubColor">{{
+                                    website.banner.textSub
+                            }}</span></h1>
                     <!--Tìm kiếm-->
-                    <v-toolbar rounded color="white" class="mb-1 mt-5">
-                        <v-text-field clearable flat solo hide-details
-                            :prepend-inner-icon="website.banner.iconInputSeach_v1"
-                            label="Tên công việc, vị trí ứng tuyển mong muốn"></v-text-field>
-                        <v-select class="ml-1" flat solo hide-details
-                            :prepend-inner-icon="website.banner.iconInputSeach_v2" label="Ngành nghề">
-                        </v-select>
-                        <v-select class="ml-1" flat solo hide-details
-                            :prepend-inner-icon="website.banner.iconInputSeach_v3" label="Địa điểm">
-                        </v-select>
-                        <v-btn class="ml-1" :color="website.color.tealMain.color" dark height="48" depressed>
-                            {{ website.banner.textBtnSeach }}</v-btn>
-                    </v-toolbar>
+                    <v-card rounded color="white" class="mb-1 mt-5">
+                        <v-row no-gutters>
+                            <v-col cols="12" sm="3">
+                                <v-text-field clearable flat solo hide-details
+                                    :prepend-inner-icon="website.banner.iconInputSeach_v1"
+                                    label="Tên công việc, vị trí ứng tuyển mong muốn"></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="3">
+                                <v-select class="ml-1" flat solo hide-details
+                                    :prepend-inner-icon="website.banner.iconInputSeach_v2" label="Ngành nghề">
+                                </v-select>
+                            </v-col>
+                            <v-col cols="12" sm="3">
+                                <v-select class="ml-1" flat solo hide-details
+                                    :prepend-inner-icon="website.banner.iconInputSeach_v3" label="Địa điểm">
+                                </v-select>
+                            </v-col>
+                            <v-col cols="12" sm="3">
+                                <center class="p-1">
+                                    <v-btn class="ml-1" :color="website.color.tealMain.color" dark height="40"
+                                        depressed>
+                                        {{ website.banner.textBtnSeach }}</v-btn>
+                                </center>
+                            </v-col>
+                        </v-row>
+                    </v-card>
                     <div class="mt-5">Từ khóa xu hướng: <span :style="website.color.yellowSubColor">Người quản lý, Hành
                             chính, Android, VueJS, Asp.net</span> </div>
                     <!--Thống kê-->
@@ -56,6 +70,7 @@ export default {
     data() {
         return {
             isImageBannerRight: true,
+            isMobile: false,
             windowSize: {
                 x: 0,
                 y: 0,
@@ -69,9 +84,15 @@ export default {
         onResize() {
             this.windowSize = { x: window.innerWidth, y: window.innerHeight };
 
-            if (this.windowSize.x < 1264) {
+            if (this.windowSize.x < 600) {
+                this.isMobile = true;
+                this.isImageBannerRight = false;
+            }
+            else if (this.windowSize.x < 1264) {
+                this.isMobile = false;
                 this.isImageBannerRight = false;
             } else {
+                this.isMobile = false;
                 this.isImageBannerRight = true;
             }
         },

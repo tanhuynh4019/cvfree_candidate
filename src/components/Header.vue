@@ -40,10 +40,10 @@
 
             <v-responsive max-width="400">
                 <div>
-                    <v-btn text>
-                        <v-icon>mdi-login</v-icon>Đăng nhập / Đăng ký
+                    <v-btn text small>
+                        <v-icon size="18">mdi-login</v-icon>Đăng nhập / Đăng ký
                     </v-btn>
-                    <v-btn class="ml-1" color="#B2DFDB">Tìm ứng viên</v-btn>
+                    <v-btn class="ml-1" small color="#B2DFDB">Tìm ứng viên</v-btn>
                 </div>
             </v-responsive>
         </v-app-bar>
