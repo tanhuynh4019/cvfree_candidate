@@ -1,5 +1,5 @@
 <template>
-    <div class="pa-system">
+    <div class="pa-system" :style="`background-image: url('${website.pa.system.srcBanner}')`">
         <v-container class="text-white pa-system-item">
             <v-row>
                 <v-col cols="12" md="8">
@@ -9,9 +9,7 @@
                             <span class="ml-2" style="font-size: 15x;">{{ website.pa.system.titleSub }}</span>
                         </span>
                         <h2>{{ website.pa.system.titleMain }}</h2>
-                        <p class="mt-10" style="opacity: 0.7;">Chúng tôi là sàn giao dịch việc làm, nhằm giúp ứng viên
-                            mau chóng tìm được việc làm phù hợp thông qua hệ thống tạo CV và ứng tuyển nhanh vào công
-                            việc.</p>
+                        <p class="mt-10" style="opacity: 0.7;">{{website.pa.system.desciption}}</p>
 
                         <div class="mt-5" style="font-size: 20px;">
                             <div v-for="(item, i) in website.pa.system.list" :key="i"><i
@@ -22,11 +20,11 @@
 
                         <div class="mt-10">
                             <v-row>
-                                <v-col cols="4">
+                                <v-col cols="6" md="4" lg="4">
                                     <v-btn depressed x-large :color="website.color.redMain.color" dark class="w-100">
                                         {{ website.pa.system.textBtn_1 }}</v-btn>
                                 </v-col>
-                                <v-col cols="4">
+                                <v-col cols="6" md="4" lg="4">
                                     <v-btn depressed x-large :color="website.color.redMain.color" dark
                                         class="ml-2 w-100">{{ website.pa.system.textBtn_2 }}</v-btn>
                                 </v-col>
@@ -56,7 +54,6 @@ h2 {
 }
 
 .pa-system {
-    background-image: url('https://templates.hibootstrap.com/jecto/default/assets/img/home-three/system-bg.jpg');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;

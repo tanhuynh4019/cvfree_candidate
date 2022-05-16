@@ -41,6 +41,34 @@ export default {
             list: ['Tiếp cận với nhiều công ty lớn và chất lượng', 'Phân tích, đánh giá năng lực để tìm công việc phù hợp', 'Hệ thống chấm điểm CV và hệ thống cấp chứng chỉ uy tín cho ứng viên'],
             textBtn_1: 'Tạo CV online ấn tượng',
             textBtn_2: 'Sử dụng CV có sẵn',
+            srcBanner: 'https://templates.hibootstrap.com/jecto/default/assets/img/home-three/system-bg.jpg',
+            desciption: 'Chúng tôi là sàn giao dịch việc làm, nhằm giúp ứng viên mau chóng tìm được việc làm phù hợp thông qua hệ thống tạo CV và ứng tuyển nhanh vào công việc.'
+          },
+          active: {
+            titleSub: 'Quá trình làm việc',
+            titleMain: 'Xem làm thế nào nó hoạt động',
+            list: [
+              {
+                icon: 'mdi-account-tie',
+                name: 'Đăng ký tài khoản',
+                content: 'Tạo tài khoản hoặc đăng nhập vào hệ thống'
+              },
+              {
+                icon: 'mdi-card-account-details-star',
+                name: 'Tạo CV online',
+                content: 'Cùng sử dụng hệ thống AI chấm điểm và hướng dẫn chất lượng'
+              },
+              {
+                icon: 'mdi-briefcase-search',
+                name: 'Tìm công việc của bạn',
+                content: 'Tìm kiếm công việc phù hợp với khả năng của bản thân'
+              },
+              {
+                icon: 'mdi-account-network',
+                name: 'Xin việc / ứng tuyển trực tiếp',
+                content: 'Ứng tuyển và chờ cuộc gọi từ nhà tuyển dụng'
+              },
+            ]
           }
         },
         color: {

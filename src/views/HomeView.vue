@@ -2,8 +2,8 @@
   <div class="home-view">
     <div class="bg-banner"><BannerHome :website="website" /></div>
     <div class="bg-white"><IndexJobTop :website="website" /></div>
-    <div class="bg-white"><PaSystem :website="website" /></div>
-    <div style="height: 900px"></div>
+    <div><PaSystem :website="website" /></div>
+    <div class="bg-white"><PaActive :website="website" /></div>
   </div>
 </template>
 
@@ -11,13 +11,15 @@
 import BannerHome from '../components/banner/BannerHome.vue';
 import IndexJobTop from '../components/job/IndexJobTop.vue';
 import PaSystem from '../components/asbout-us/PaSystem.vue';
+import PaActive from '../components/asbout-us/PaActive.vue';
 export default {
   name: "Home",
   props: ['website'],
   components: {
     BannerHome,
     IndexJobTop,
-    PaSystem
+    PaSystem,
+    PaActive
   }
 };
 </script>
