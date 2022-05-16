@@ -16,7 +16,7 @@ export default {
       website: {
         srcLogo: 'https://templates.hibootstrap.com/jecto/default/assets/img/logo-three.png',
         banner: {
-          textMain: 'Chúng tôi sẽ giúp bạn tìm',
+          textMain: 'Chúng tôi sẽ giúp bạn tìm 1',
           textSub: 'được công việc mong muốn của mình',
           textSub_v1: 'Người dùng đã đăng ký',
           textSub_v2: 'Nhà tuyển dụng toàn cầu',
