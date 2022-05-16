@@ -34,6 +34,10 @@ export default {
           textAll: 'Rất nhiều công việc công nghệ hàng đầu đang chờ đợi bạn.',
           linkTextAll: 'Duyệt qua tất cả các công việc'
         },
+        carrer: {
+          titleSub: 'Top nghành nghề',
+          titleMain: 'Các công việc chất lượng',
+        },
         pa: {
           system: {
             titleSub: 'Hệ thống tuyển dụng',

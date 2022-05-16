@@ -4,6 +4,7 @@
     <div class="bg-white"><IndexJobTop :website="website" /></div>
     <div><PaSystem :website="website" /></div>
     <div class="bg-white"><PaActive :website="website" /></div>
+    <div class="bg-white"><IndexCareerCard :website="website" /></div>
   </div>
 </template>
 
@@ -12,6 +13,7 @@ import BannerHome from '../components/banner/BannerHome.vue';
 import IndexJobTop from '../components/job/IndexJobTop.vue';
 import PaSystem from '../components/asbout-us/PaSystem.vue';
 import PaActive from '../components/asbout-us/PaActive.vue';
+import IndexCareerCard from '../components/careers/IndexCareerCard.vue'
 export default {
   name: "Home",
   props: ['website'],
@@ -19,7 +21,8 @@ export default {
     BannerHome,
     IndexJobTop,
     PaSystem,
-    PaActive
+    PaActive,
+    IndexCareerCard
   }
 };
 </script>
