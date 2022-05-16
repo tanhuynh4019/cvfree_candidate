@@ -56,7 +56,7 @@
                 </div>
             </v-col>
             <v-col cols="12" lg="6">
-                <div v-if="!isImageBannerRight" style="height:90px"></div>
+                <div v-if="!isImageBannerRight" style="height:50px"></div>
                 <img v-if="isImageBannerRight" height="700" width="100%" :src="website.banner.srcImageRight" />
             </v-col>
         </v-row>

@@ -33,6 +33,9 @@ export default {
           },
           tealMain: {
             color: '#004D40'
+          },
+          redMain: {
+            color: '#B71C1C'
           }
         }
       },
