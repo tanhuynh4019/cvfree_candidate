@@ -15,6 +15,7 @@ export default {
     return {
       website: {
         srcLogo: 'https://templates.hibootstrap.com/jecto/default/assets/img/logo-three.png',
+        srcLogoNoText: 'https://templates.hibootstrap.com/jecto/default/assets/img/home-three/title-img.png',
         banner: {
           textMain: 'Chúng tôi sẽ giúp bạn tìm 1',
           textSub: 'được công việc mong muốn của mình',
@@ -26,6 +27,21 @@ export default {
           iconInputSeach_v3: 'mdi-map-marker-outline',
           textBtnSeach: 'Tìm việc',
           srcImageRight: 'https://templates.hibootstrap.com/jecto/default/assets/img/home-three/banner-main.png'
+        },
+        job: {
+          titleSubGood: 'Việc làm được chọn lọc hàng đầu',
+          titleMainGood: 'Việc làm tốt nhất',
+          textAll: 'Rất nhiều công việc công nghệ hàng đầu đang chờ đợi bạn.',
+          linkTextAll: 'Duyệt qua tất cả các công việc'
+        },
+        pa: {
+          system: {
+            titleSub: 'Hệ thống tuyển dụng',
+            titleMain: 'Bạn sẽ nhận được những việc làm phù hợp từ hệ thống AI tiêu chuẩn của cvfree',
+            list: ['Tiếp cận với nhiều công ty lớn và chất lượng', 'Phân tích, đánh giá năng lực để tìm công việc phù hợp', 'Hệ thống chấm điểm CV và hệ thống cấp chứng chỉ uy tín cho ứng viên'],
+            textBtn_1: 'Tạo CV online ấn tượng',
+            textBtn_2: 'Sử dụng CV có sẵn',
+          }
         },
         color: {
           yellowSubColor: {
