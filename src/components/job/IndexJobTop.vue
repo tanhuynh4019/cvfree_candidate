@@ -13,7 +13,7 @@
             <div class="mt-10">
                 <v-row>
                     <v-col cols="6" v-for="job in jobs" :key="job._id">
-                        <v-card link class="mx-auto w-100" outlined
+                        <v-card link class="mx-auto w-100 animation-hover" outlined
                             :style="`border: 1px dashed ${website.color.redMain.color}`">
                             <div class="p-4">
                                 <v-row>
@@ -72,7 +72,8 @@
                     </v-col>
                 </v-row>
                 <p class="mt-10 text-center">
-                    Rất nhiều công việc công nghệ hàng đầu đang chờ đợi bạn. <u :style="website.color.redMain">Duyệt qua tất cả các công việc</u>
+                    Rất nhiều công việc công nghệ hàng đầu đang chờ đợi bạn. <u :style="website.color.redMain">Duyệt qua
+                        tất cả các công việc</u>
                 </p>
             </div>
         </v-container>
@@ -886,5 +887,15 @@ h2 {
 
 p {
     font-size: 17px;
+}
+
+.animation-hover {
+    transition-duration: .3s;
+    transition-property: transform;
+    transition-timing-function: ease-out;
+}
+
+.animation-hover:hover {
+    transform: translateY(-5px);
 }
 </style>
