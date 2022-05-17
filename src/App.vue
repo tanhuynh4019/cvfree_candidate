@@ -2,18 +2,21 @@
   <v-app id="inspire" v-resize="onResize">
     <Header :website="website" />
 
-    <v-main class="grey lighten-2">
+    <v-main>
       <router-view :website="website" />
+      <Footer :website="website" />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import Header from './components/Header.vue'
+import Header from './components/Header.vue';
+import Footer from './components/Footer.vue';
 export default {
   data() {
     return {
       website: {
+        company: 'cvfree',
         srcLogo: 'https://templates.hibootstrap.com/jecto/default/assets/img/logo-three.png',
         srcLogoNoText: 'https://templates.hibootstrap.com/jecto/default/assets/img/home-three/title-img.png',
         banner: {
@@ -94,7 +97,8 @@ export default {
     }
   },
   components: {
-    Header
+    Header,
+    Footer
   }
 };
 </script>

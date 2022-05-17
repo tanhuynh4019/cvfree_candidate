@@ -882,6 +882,16 @@ export default {
     max-width: 1250px;
 }
 
+.animation-hover {
+    transition-duration: .3s;
+    transition-property: transform;
+    transition-timing-function: ease-out;
+}
+
+.animation-hover:hover {
+    transform: translateY(-5px);
+}
+
 h2 {
     font-size: 40px;
 }
