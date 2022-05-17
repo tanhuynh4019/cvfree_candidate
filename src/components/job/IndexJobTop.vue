@@ -3,11 +3,10 @@
         <v-container>
             <div class="text-center" style="margin-top: 30px">
                 <span>
-                    <img alt="Biểu tượng" height="14" style="margin-top: -4px;"
-                        :src="website.srcLogoNoText" />
-                    <span class="ml-2" style="font-size: 15x;">{{website.job.titleSubGood}}</span>
+                    <img alt="Biểu tượng" height="14" style="margin-top: -4px;" :src="website.srcLogoNoText" />
+                    <span class="ml-2" style="font-size: 15x;">{{ website.job.titleSubGood }}</span>
                 </span>
-                <h2 :style="website.color.tealMain">{{website.job.titleMainGood}}</h2>
+                <h2 :style="website.color.tealMain">{{ website.job.titleMainGood }}</h2>
             </div>
 
             <div class="mt-10">
@@ -17,10 +16,10 @@
                             :style="`border: 1px dashed ${website.color.redMain.color}`">
                             <div class="p-4">
                                 <v-row>
-                                    <v-col cols="2" xs="2" sm="2">
+                                    <v-col cols="4" xs="2" sm="2">
                                         <img width="100%" height="68" :src="job.idCompany.srcLogo" />
                                     </v-col>
-                                    <v-col cols="6" xs="7" sm="7">
+                                    <v-col cols="8" xs="7" sm="7">
                                         <h6>{{ job.name.length > 50 ? `${job.name.substring(0, 50)}...` :
                                                 `${job.name}..............................`
                                         }}</h6>
@@ -58,7 +57,7 @@
                                             <v-chip label small>{{ job.vacancies }}</v-chip>
                                         </div>
                                     </v-col>
-                                    <v-col cols="4" xs="3" sm="3">
+                                    <v-col cols="12" xs="3" sm="3">
                                         <v-btn class="w-100" :color="website.color.tealMain.color" dark depressed small>
                                             {{ job.workingForm }}</v-btn>
 
@@ -72,7 +71,7 @@
                     </v-col>
                 </v-row>
                 <p class="mt-10 text-center">
-                    {{website.job.textAll}} <u :style="website.color.redMain">{{website.job.linkTextAll}}</u>
+                    {{ website.job.textAll }} <u :style="website.color.redMain">{{ website.job.linkTextAll }}</u>
                 </p>
             </div>
         </v-container>

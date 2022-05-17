@@ -1,10 +1,10 @@
 <template>
-  <v-app id="inspire" v-resize="onResize">
-    <Header :website="website" />
+  <v-app id="inspire">
+    <Header v-if="showMenu" :website="website" :offset_top="offsetTop" />
 
-    <v-main>
-      <router-view :website="website" />
-      <Footer :website="website" />
+    <v-main class="scroll-y" v-scroll="onScroll">
+      <router-view :website="website" :user="user" @showMenu="showMenu = $event" />
+      <Footer v-if="showMenu" :website="website" />
     </v-main>
   </v-app>
 </template>
@@ -13,10 +13,16 @@
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
 export default {
+  async created()
+  {
+  },
   data() {
     return {
+      showMenu: true,
+      user: null,
+      offsetTop : 0,
       website: {
-        company: 'cvfree',
+        company: 'TopCV',
         srcLogo: 'https://templates.hibootstrap.com/jecto/default/assets/img/logo-three.png',
         srcLogoNoText: 'https://templates.hibootstrap.com/jecto/default/assets/img/home-three/title-img.png',
         banner: {
@@ -50,7 +56,7 @@ export default {
             titleSub: 'Hệ thống tuyển dụng',
             titleMain: 'Bạn sẽ nhận được những việc làm phù hợp từ hệ thống AI tiêu chuẩn của cvfree',
             list: ['Tiếp cận với nhiều công ty lớn và chất lượng', 'Phân tích, đánh giá năng lực để tìm công việc phù hợp', 'Hệ thống chấm điểm CV và hệ thống cấp chứng chỉ uy tín cho ứng viên'],
-            textBtn_1: 'Tạo CV online ấn tượng',
+            textBtn_1: 'Tạo CV online',
             textBtn_2: 'Sử dụng CV có sẵn',
             srcBanner: 'https://templates.hibootstrap.com/jecto/default/assets/img/home-three/system-bg.jpg',
             desciption: 'Chúng tôi là sàn giao dịch việc làm, nhằm giúp ứng viên mau chóng tìm được việc làm phù hợp thông qua hệ thống tạo CV và ứng tuyển nhanh vào công việc.'
@@ -99,6 +105,13 @@ export default {
   components: {
     Header,
     Footer
+  },
+  methods: {
+    onScroll(e) {
+      if (typeof window === 'undefined') return
+      const top = window.pageYOffset || e.target.scrollTop || 0
+      this.offsetTop  = top
+    },
   }
 };
 </script>

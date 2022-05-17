@@ -27,6 +27,7 @@
 <script>
 export default {
     name: "Menu",
+    props: ['website','offset_top'],
     data() {
         return {
             menus: [

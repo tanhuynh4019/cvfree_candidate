@@ -3,6 +3,7 @@
         <v-row :class="!isImageBannerRight ? '' : 'mt-10'" style="margin: -24px 0px;">
             <v-col cols="12" lg="6">
                 <div class="mt-10">
+
                     <h1 :style="isMobile ? 'font-size: 40px' : ''">{{ website.banner.textMain }} <span
                             :style="website.color.yellowSubColor">{{
                                     website.banner.textSub
@@ -11,23 +12,23 @@
                     <v-card rounded color="white" class="mb-1 mt-5">
                         <v-row no-gutters>
                             <v-col cols="12" sm="3">
-                                <v-text-field clearable flat solo hide-details
+                                <v-text-field height="70" clearable flat solo hide-details
                                     :prepend-inner-icon="website.banner.iconInputSeach_v1"
                                     label="Tên công việc, vị trí ứng tuyển mong muốn"></v-text-field>
                             </v-col>
                             <v-col cols="12" sm="3">
-                                <v-select class="ml-1" flat solo hide-details
+                                <v-select height="70" class="ml-1" flat solo hide-details
                                     :prepend-inner-icon="website.banner.iconInputSeach_v2" label="Ngành nghề">
                                 </v-select>
                             </v-col>
                             <v-col cols="12" sm="3">
-                                <v-select class="ml-1" flat solo hide-details
+                                <v-select height="70" class="ml-1" flat solo hide-details
                                     :prepend-inner-icon="website.banner.iconInputSeach_v3" label="Địa điểm">
                                 </v-select>
                             </v-col>
                             <v-col cols="12" sm="3">
-                                <center class="p-1">
-                                    <v-btn class="ml-1" :color="website.color.tealMain.color" dark height="40"
+                                <center class="p-2">
+                                    <v-btn class="ml-1 w-100" :color="website.color.tealMain.color" dark height="50"
                                         depressed>
                                         {{ website.banner.textBtnSeach }}</v-btn>
                                 </center>
@@ -37,7 +38,7 @@
                     <div class="mt-5">Từ khóa xu hướng: <span :style="website.color.yellowSubColor">Người quản lý, Hành
                             chính, Android, VueJS, Asp.net</span> </div>
                     <!--Thống kê-->
-                    <div style="margin-top: 10%">
+                    <div style="margin-top: 10%" class="p-3">
                         <v-row>
                             <v-col cols="4" class="border-start">
                                 <h4>6,789,990</h4>

@@ -1,6 +1,6 @@
 <template>
     <div class="header" v-resize="onResize">
-        <v-app-bar app color="#004D40" height="70" style="box-shadow: 0px 0px 0px 0px;">
+        <v-app-bar app color="#004D40" height="70" :class="offset_top > 10 ? 'box-shadow-beautiful' : 'box-shadow-beautiful-none'">
             <v-spacer>
                 <v-container>
                     <v-row>
@@ -8,7 +8,7 @@
                             <img :src="website.srcLogo" />
                         </v-col>
                         <v-col cols="9">
-                            <Menu v-if="isMenu" />
+                            <Menu v-if="isMenu" :offset_top="offset_top" />
                         </v-col>
                     </v-row>
                 </v-container>
@@ -16,7 +16,7 @@
 
             <v-responsive max-width="400">
                 <div>
-                    <v-btn v-if="!isMobile" text dark>
+                    <v-btn :to="{ name: 'Login' }" v-if="!isMobile" text dark :color="offset_top > 750 ? website.color.yellowSubColor.color : ''">
                         <v-icon>mdi-login</v-icon>Đăng nhập / Đăng ký
                     </v-btn>
                     <v-btn v-if="!isMobile" class="ml-1" color="#B2DFDB">Tìm ứng viên</v-btn>
@@ -26,7 +26,7 @@
             </v-responsive>
         </v-app-bar>
 
-        <v-app-bar app color="white" height="70" style="margin-top: 70px" v-if="isMobile">
+        <v-app-bar app color="white" height="50" style="margin-top: 70px" v-if="isMobile">
             <v-spacer>
                 <v-container>
                     <v-row>
@@ -61,7 +61,7 @@ export default {
     components: {
         Menu,
     },
-    props: ['website'],
+    props: ['website', 'offset_top', 'showMenu'],
     data: () => ({
         isMenu: true,
         isMobile: false,
@@ -88,10 +88,18 @@ export default {
                 this.isMenu = true;
                 this.isMobile = false;
             }
+
         },
     },
 };
 </script>
 
-<style>
+<style scoped>
+.box-shadow-beautiful{
+    box-shadow: 0px 0px 20px 0px #6363636b !important
+}
+
+.box-shadow-beautiful-none{
+    box-shadow: none !important;
+}
 </style>
