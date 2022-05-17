@@ -40,7 +40,7 @@
 
             <v-responsive max-width="400">
                 <div>
-                    <v-btn text small>
+                    <v-btn :to="{ name: 'Login' }" text small>
                         <v-icon size="18">mdi-login</v-icon>Đăng nhập / Đăng ký
                     </v-btn>
                     <v-btn class="ml-1" small color="#B2DFDB">Tìm ứng viên</v-btn>
