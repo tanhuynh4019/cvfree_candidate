@@ -6,7 +6,7 @@
                 <v-card-text class="white--text pt-0">
                     <v-container style="margin-top: 30px">
                         <v-row>
-                            <v-col cols="3">
+                            <v-col cols="6" md="3">
                                 <b class="ml-4" :style="website.color.yellowSubColor">Về {{ website.company }}</b>
                                 <v-list nav dense :color="website.color.tealMain.color">
                                     <v-list-item-group>
@@ -79,7 +79,7 @@
                                 </v-list>
                             </v-col>
 
-                            <v-col cols="3">
+                            <v-col cols="6" md="3">
                                 <b class="ml-4" :style="website.color.yellowSubColor">Đối tác</b>
                                 <v-list nav dense :color="website.color.tealMain.color">
                                     <v-list-item-group>
@@ -136,7 +136,7 @@
                                     </v-list-item-group>
                                 </v-list>
                             </v-col>
-                            <v-col cols="3">
+                            <v-col cols="6" md="3">
                                 <b class="ml-4" :style="website.color.yellowSubColor">Hồ sơ và CV</b>
                                 <v-list nav dense :color="website.color.tealMain.color">
                                     <v-list-item-group>
@@ -209,7 +209,7 @@
                                 </v-list>
                             </v-col>
 
-                            <v-col cols="3">
+                            <v-col cols="6" md="3">
                                 <b class="ml-4" :style="website.color.yellowSubColor">Xây dựng sự nghiệp</b>
                                 <v-list nav dense :color="website.color.tealMain.color">
                                     <v-list-item-group>
@@ -266,7 +266,7 @@
                 <v-card-text class="white--text">
                     <v-container>
                         <v-row>
-                            <v-col cols="8">
+                            <v-col cols="12" md="4">
                                 <div class="mt-3">
                                     <div>
                                         <b :style="website.color.yellowSubColor">Địa chỉ: </b>
@@ -285,7 +285,7 @@
                                     </div>
                                 </div>
                             </v-col>
-                            <v-col cols="4">
+                            <v-col cols="12" md="8">
                                 <img width="154" height="39" :src="website.srcLogo" />
                                 <img width="154" height="60" class="ml-4" src="https://www.topcv.vn/images/bct.jpg" />
                             </v-col>
