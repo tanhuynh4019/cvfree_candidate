@@ -276,7 +276,7 @@
                                         261 - 263 Phan Xích Long, Phường 2, Quận Phú Nhuận, TP Hồ Chí Minh
                                     </div>
                                     <div>
-                                        <b :style="website.color.yellowSubColor">Email: </b> tanhuynh9940@gmail.com
+                                        <b :style="website.color.yellowSubColor">Email: </b> topcv@gmail.com
                                     </div>
                                     <div>
                                         <b :style="website.color.yellowSubColor">Số điện thoại: </b> 0924404019
