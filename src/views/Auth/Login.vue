@@ -1,9 +1,10 @@
 <template>
     <div>
-        <div :style="`background: ${website.color.tealMain.color}; height: 130px; width: 100%;`">
+        <div :style="`background: ${website.color.tealMain.color}; height: 180px; width: 100%;`">
             <center>
                 <div class="p-4">
                     <img :src="website.srcLogo" />
+                    <h4 class="text-white mt-5">Đăng nhập ứng viên</h4>
                 </div>
             </center>
         </div>
@@ -54,7 +55,7 @@
                             </v-row>
                             <v-row class="mt-4">
                                 <v-col cols="6">
-                                    Bạn chưa có tài khoản? <b :style="website.color.tealMain">Đăng ký!</b>
+                                    Bạn chưa có tài khoản? <router-link :to="{ name: 'SignUp' }" :style="website.color.tealMain">Đăng ký!</router-link>
                                 </v-col>
                                 <v-col cols="6">
                                     <b class="float-end" :style="website.color.tealMain">Quên mật khẩu?</b>
