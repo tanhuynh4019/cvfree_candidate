@@ -3,29 +3,35 @@
         <div :style="`background: ${website.color.tealMain.color}; height: 180px; width: 100%;`">
             <center>
                 <div class="p-4">
-                    <img :src="website.srcLogo" />
+                    <router-link :to="{ path: '/' }"><img :src="website.srcLogo" /></router-link>
                     <h4 class="text-white mt-5">Đăng nhập ứng viên</h4>
                 </div>
             </center>
         </div>
         <v-container style="margin-top: -50px">
-            <v-card style="box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;;">
+            <v-card style="box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;" :loading="isloading">
                 <div class="p-5">
                     <v-row>
                         <v-col cols="12">
                             <h3>Chào mừng bạn đến với {{ website.company }}</h3>
                             <p>Cùng xây dựng một hồ sơ nổi bật và nhận được các cơ hội sự nghiệp lý tưởng</p>
-                            <v-form class="mt-5">
-                                <v-text-field type="email" prepend-inner-icon="mdi-email-mark-as-unread"
+                            <v-form class="mt-5" v-model="formCandidate.valid" ref="formCandidate">
+                                <v-text-field v-model="formCandidate.value.email" :rules="formCandidate.validate.email"
+                                    type="email" prepend-inner-icon="mdi-email-mark-as-unread"
                                     placeholder="Nhập email của bạn" outlined dense
                                     :color="website.color.tealMain.color"></v-text-field>
-                                <v-text-field :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+
+                                <v-text-field v-model="formCandidate.value.password"
+                                    :rules="formCandidate.validate.password"
+                                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                                     :type="showPassword ? 'text' : 'password'" prepend-inner-icon="mdi-shield-key"
                                     outline placeholder="Nhập mật khẩu" outlined dense
                                     :color="website.color.tealMain.color" @click:append="showPassword = !showPassword">
                                 </v-text-field>
                             </v-form>
-                            <v-btn depressed dark class="w-100" :color="website.color.tealMain.color">Đăng nhập</v-btn>
+                            <v-btn @click="login()" :disabled="!formCandidate.valid" depressed
+                                :dark="formCandidate.valid" class="w-100" :color="website.color.tealMain.color">
+                                Đăng nhập</v-btn>
                             <div class="text-center mt-5">hoặc đăng nhập bằng</div>
                             <v-row class="mt-2">
                                 <v-col cols="6" sm="4">
@@ -55,7 +61,8 @@
                             </v-row>
                             <v-row class="mt-4">
                                 <v-col cols="6">
-                                    Bạn chưa có tài khoản? <router-link :to="{ name: 'SignUp' }" :style="website.color.tealMain">Đăng ký!</router-link>
+                                    Bạn chưa có tài khoản? <router-link :to="{ name: 'SignUp' }"
+                                        :style="website.color.tealMain">Đăng ký!</router-link>
                                 </v-col>
                                 <v-col cols="6">
                                     <b class="float-end" :style="website.color.tealMain">Quên mật khẩu?</b>
@@ -70,16 +77,74 @@
 </template>
 
 <script>
+import Auth from '../../apis/auth.api';
+
+import RegexModule from '../../modules/Regex.module';
 export default {
     name: 'Login',
-    props: ['website'],
+    props: ['website', 'user'],
     data() {
         return {
-            showPassword: false
+            showPassword: false,
+            isloading: false,
+            formCandidate: {
+                valid: true,
+                value: {
+                    email: '',
+                    password: ''
+                },
+                validate: {
+                    email: [
+                        v => !!v || 'Email không được để trống!',
+                        v => RegexModule.email_RFC_2822.test(v) || 'E-mail không hợp lệ!',
+                    ],
+                    password: [
+                        v => !!v || 'Mật khẩu không được để trống!',
+                        v => (v && v.length >= 5 && v.length <= 250) || 'Mật khẩu phải từ 5 đến 250 ký tự!',
+                    ]
+                }
+            }
         }
     },
     async created() {
         this.$emit('showMenu', false)
+        if (this.user) {
+            this.$router.push({
+                name: 'Error404'
+            })
+        }
+    },
+    methods: {
+        async login() {
+            let that = this;
+            const isValid = that.$refs.formCandidate.validate();
+            const formData = new FormData();
+            if (isValid) {
+                that.formCandidate.valid = false;
+                that.isloading = true;
+                formData.append('email', that.formCandidate.value.email);
+                formData.append('password', that.formCandidate.value.password);
+
+                const login = await Auth.login(formData, { key: 'auth' });
+                if (login === 'Unauthorized') {
+                    this.$emit('showSnackbar', { snackbar: true, text: 'Sai tài khoản hoặc mật khẩu!' });
+                    that.isloading = false;
+                    that.formCandidate.valid = true;
+                }
+                else {
+                    if (!login.error) {
+                        localStorage.setItem("tkc", login.data.token);
+                        this.$emit('showSnackbar', { snackbar: true, text: login.message });
+                        that.isloading = false;
+                        window.location.href = '/';
+                    } else {
+                        this.$emit('showSnackbar', { snackbar: true, text: login.message });
+                        that.isloading = false;
+                        that.formCandidate.valid = true;
+                    }
+                }
+            }
+        }
     }
 }
 </script>

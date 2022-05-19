@@ -6,6 +6,9 @@ import HomeView from '../views/HomeView.vue'
 import SignUp from '../views/Auth/SignUp.vue'
 import Login from '../views/Auth/Login.vue'
 
+//* Error
+import Error404 from '../views/Errors/Error404.vue'
+
 Vue.use(VueRouter)
 
 const routes = [{
@@ -23,6 +26,12 @@ const routes = [{
         path: '/dang-nhap',
         name: 'Login',
         component: Login
+    },
+    //* Error
+    {
+        path: '/khong-ton-tai-404',
+        name: 'Error404',
+        component: Error404
     },
     {
         path: '/about',

@@ -1,26 +1,45 @@
 <template>
   <v-app id="inspire">
-    <Header v-if="showMenu" :website="website" :offset_top="offsetTop" />
+    <Header v-if="showMenu" :website="website" :offset_top="offsetTop" :user="user" />
 
     <v-main class="scroll-y" v-scroll="onScroll">
-      <router-view :website="website" :user="user" @showMenu="showMenu = $event" />
+      <router-view :website="website" :user="user" @showMenu="showMenu = $event" @showSnackbar="snackbar = $event" />
       <Footer v-if="showMenu" :website="website" />
+      <DialogCheckEmail :website="website" :user="user" v-if="user && !user.isEmail" @showSnackbar="snackbar = $event" @showUser="user = $event" />
+      <v-snackbar v-model="snackbar.snackbar" :timeout="timeout" top>
+        {{ snackbar.text }}
+
+        <template v-slot:action="{ attrs }">
+          <v-btn color="blue" text v-bind="attrs" @click="snackbar.snackbar = false">
+            Đóng
+          </v-btn>
+        </template>
+      </v-snackbar>
     </v-main>
   </v-app>
 </template>
 
 <script>
+import Auth from "./apis/auth.api";
+
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
+import DialogCheckEmail from './components/candidate/DialogCheckEmail.vue'
 export default {
-  async created()
-  {
+  async created() {
+    const secret = await Auth.secret({ key: 'auth' });
+    this.user = secret.data;
   },
   data() {
     return {
+      snackbar: {
+        snackbar: false,
+        text: '',
+      },
+      timeout: 2000,
       showMenu: true,
       user: null,
-      offsetTop : 0,
+      offsetTop: 0,
       website: {
         company: 'TopCV',
         srcLogo: 'https://templates.hibootstrap.com/jecto/default/assets/img/logo-three.png',
@@ -104,13 +123,14 @@ export default {
   },
   components: {
     Header,
-    Footer
+    Footer,
+    DialogCheckEmail
   },
   methods: {
     onScroll(e) {
       if (typeof window === 'undefined') return
       const top = window.pageYOffset || e.target.scrollTop || 0
-      this.offsetTop  = top
+      this.offsetTop = top
     },
   }
 };
