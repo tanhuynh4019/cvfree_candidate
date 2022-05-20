@@ -14,7 +14,7 @@
                 </v-btn>
             </template>
             <v-list v-if="menu.isDropdown" dense>
-                <v-list-item link v-for="item in menu.list" :key="item.name">
+                <v-list-item link v-for="item in menu.list" :key="item.name" :to="item.link" @click.native="scrollToTop()">
                     <v-list-item-title>
                         <v-icon size="20">{{ item.icon }}</v-icon><span class="ml-1">{{ item.name }}</span>
                     </v-list-item-title>
@@ -84,7 +84,9 @@ export default {
                     list: [
                         {
                             name: "Tìm việc làm",
-                            link: "",
+                            link: {
+                                path: "/tim-viec-lam/tat-ca-viec-lam"
+                            },
                             icon: "mdi mdi-briefcase-search",
                         },
                         {
@@ -202,6 +204,11 @@ export default {
             ],
         };
     },
+    methods: {
+        scrollToTop() {
+            window.scrollTo(0, 0);
+        }
+    }
 };
 </script>
 

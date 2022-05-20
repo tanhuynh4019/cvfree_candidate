@@ -38,7 +38,8 @@
                 </p>
                 <v-list nav dense>
                     <v-list-item-group>
-                        <v-list-item v-for="menu in menu.candidates" :key="menu.name">
+                        <v-list-item v-for="menu in menu.candidates" :key="menu.name" :to="menu.link"
+                            @click.native="scrollToTop()">
                             <v-list-item-icon>
                                 <v-icon v-text="menu.icon"></v-icon>
                             </v-list-item-icon>
@@ -58,7 +59,8 @@
                             </v-list-item-content>
                         </v-list-item>
                         <v-divider></v-divider>
-                        <v-list-item v-for="menu in menu.securities " :key="menu.name">
+                        <v-list-item v-for="menu in menu.securities " :key="menu.name" :to="menu.link"
+                            @click.native="scrollToTop()">
                             <v-list-item-icon>
                                 <v-icon v-text="menu.icon"></v-icon>
                             </v-list-item-icon>
@@ -127,7 +129,12 @@ export default {
                     {
                         icon: 'mdi-account',
                         name: 'Thông tin ứng viên',
-                        link: ''
+                        link: {
+                            path: '/tai-khoan/tai-khoan-cua-toi',
+                            query: {
+                                status: 'taikhoan'
+                            }
+                        }
                     },
                     {
                         icon: 'mdi-progress-upload',
@@ -139,7 +146,12 @@ export default {
                     {
                         icon: 'mdi-shield-key',
                         name: 'Đổi mật khẩu',
-                        link: ''
+                        link: {
+                            path: '/tai-khoan/doi-mat-khau',
+                            query: {
+                                status: 'doi-mat-khau'
+                            }
+                        }
                     },
                     {
                         icon: 'mdi-account-cog',
@@ -185,6 +197,9 @@ export default {
                 that.snackbar = true;
                 that.text = logOut.message;
             }
+        },
+        scrollToTop() {
+            window.scrollTo(0, 0);
         }
     }
 }

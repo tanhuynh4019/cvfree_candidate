@@ -20,7 +20,7 @@
                             mã
                             vào ô dưới đây.</p>
                         <div>
-                            <v-otp-input length="6" dense type="number" v-model="otp" :disabled="loading"  :color="website.color.tealMain.color" @finish="onFinish"></v-otp-input>
+                            <v-otp-input length="6" dense type="number" v-model="otp"  :color="website.color.tealMain.color" @finish="onFinish"></v-otp-input>
                             <v-overlay absolute :value="isLoadingOTP">
                                 <v-progress-circular indeterminate color="primary"></v-progress-circular>
                             </v-overlay>
@@ -115,6 +115,7 @@ export default {
             if (!checkEmailOTP.error) {
                 that.isLoadingOTP = false;
                 that.dialogCheckEmail = false;
+                that.$emit('showUser', checkEmailOTP.data);
                 that.$emit('showSnackbar', { snackbar: true, text: checkEmailOTP.message });
             }
             else {
@@ -143,7 +144,6 @@ export default {
                 that.text = sendEmailVerificationCode.message;
                 that.isCheckEmail = true;
                 that.$emit('showSnackbar', { snackbar: true, text: sendEmailVerificationCode.message });
-                // that.$emit('showUser', { user: sendEmailVerificationCode.data });
 
                 const dateNow = Date.now();
                 const date = new Date(sendEmailVerificationCode.data.deadlineOtpEmail);

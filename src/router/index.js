@@ -5,6 +5,11 @@ import HomeView from '../views/HomeView.vue'
 //* auth
 import SignUp from '../views/Auth/SignUp.vue'
 import Login from '../views/Auth/Login.vue'
+import MyAccount from '../views/Auth/MyAccout.vue'
+import ChangePassword from '../views/Auth/ChangePassword.vue'
+
+//* job
+import Job from '../views/jobs/Job.vue'
 
 //* Error
 import Error404 from '../views/Errors/Error404.vue'
@@ -26,6 +31,22 @@ const routes = [{
         path: '/dang-nhap',
         name: 'Login',
         component: Login
+    },
+    {
+        path: '/tai-khoan/tai-khoan-cua-toi',
+        name: 'MyAccount',
+        component: MyAccount
+    },
+    {
+        path: '/tai-khoan/doi-mat-khau',
+        name: 'ChangePassword',
+        component: ChangePassword
+    },
+    //* Job
+    {
+        path: '/tim-viec-lam/tat-ca-viec-lam',
+        name: 'Job',
+        component: Job
     },
     //* Error
     {

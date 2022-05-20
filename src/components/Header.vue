@@ -6,7 +6,9 @@
                 <v-container>
                     <v-row>
                         <v-col cols="3">
-                            <img :src="website.srcLogo" />
+                            <router-link :to="{ path: '/' }">
+                                <img :src="website.srcLogo" />
+                            </router-link>
                         </v-col>
                         <v-col cols="9">
                             <Menu v-if="isMenu" :offset_top="offset_top" />
