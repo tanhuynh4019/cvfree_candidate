@@ -11,7 +11,7 @@
                             </router-link>
                         </v-col>
                         <v-col cols="9">
-                            <Menu v-if="isMenu" :offset_top="offset_top" />
+                            <Menu v-if="isMenu" :offset_top="offset_top" status="row" />
                         </v-col>
                     </v-row>
                 </v-container>
@@ -19,7 +19,7 @@
 
             <v-responsive max-width="400">
                 <div v-if="!user">
-                    <v-btn :to="{ name: 'Login' }" v-if="!isMobile" text dark
+                    <v-btn @click="linkLogin()" v-if="!isMobile" text dark
                         :color="offset_top > 750 ? website.color.yellowSubColor.color : ''">
                         <v-icon>mdi-login</v-icon>Đăng nhập / Đăng ký
                     </v-btn>
@@ -88,7 +88,7 @@
         </v-app-bar>
 
         <v-navigation-drawer v-model="drawer" fixed temporary>
-            <!--  -->
+            <Menu :offset_top="offset_top" status="column" />
         </v-navigation-drawer>
     </div>
 </template>
@@ -117,6 +117,10 @@ export default {
         this.onResize();
     },
     methods: {
+        linkLogin()
+        {
+            window.location.href = '/dang-nhap';
+        },
         onResize() {
             this.windowSize = { x: window.innerWidth, y: window.innerHeight };
 

@@ -136,7 +136,7 @@ export default {
                         localStorage.setItem("tkc", login.data.token);
                         this.$emit('showSnackbar', { snackbar: true, text: login.message });
                         that.isloading = false;
-                        window.location.href = '/';
+                        window.location.href = '/tim-viec-lam/tat-ca-viec-lam';
                     } else {
                         this.$emit('showSnackbar', { snackbar: true, text: login.message });
                         that.isloading = false;

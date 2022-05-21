@@ -36,7 +36,7 @@ function formatDate(date, language) {
                 thu = 'Đang cập nhật';
                 break;
         };
-        const textDate = `${thu}, ${dateFormat.getDate() < 10 ? '0' + dateFormat.getDate() : dateFormat.getDate()} th ${dateFormat.getMonth()+1 < 10 ? '0' + (dateFormat.getMonth()+1) : dateFormat.getMonth()+1}, ${dateFormat.getFullYear()} ${dateFormat.getHours() < 10 ? '0' + dateFormat.getHours() : dateFormat.getHours()}:${dateFormat.getMinutes() < 10 ? '0' + dateFormat.getMinutes() : dateFormat.getMinutes()}`;
+        const textDate = `${thu} - ${dateFormat.getDate() < 10 ? '0' + dateFormat.getDate() : dateFormat.getDate()} th ${dateFormat.getMonth()+1 < 10 ? '0' + (dateFormat.getMonth()+1) : dateFormat.getMonth()+1}, ${dateFormat.getFullYear()} ${dateFormat.getHours() < 10 ? '0' + dateFormat.getHours() : dateFormat.getHours()}:${dateFormat.getMinutes() < 10 ? '0' + dateFormat.getMinutes() : dateFormat.getMinutes()}`;
         return textDate;
     } else {
         const dateFormat = new Date(date);

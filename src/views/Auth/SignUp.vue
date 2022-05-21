@@ -41,7 +41,8 @@
               </v-form>
               <p>Bằng việc đăng ký tài khoản, bạn đã đồng ý với <b :style="website.color.tealMain">Điều khoản dịch
                   vụ</b> và <b :style="website.color.tealMain">Chính sách bảo mật</b> của chúng tôi</p>
-              <v-btn @click="signUp()" :disabled="!formCandidate.valid" depressed :dark="formCandidate.valid" class="w-100" :color="website.color.tealMain.color">Đăng ký
+              <v-btn @click="signUp()" :disabled="!formCandidate.valid" depressed :dark="formCandidate.valid"
+                class="w-100" :color="website.color.tealMain.color">Đăng ký
               </v-btn>
               <div class="text-center mt-5">hoặc đăng nhập bằng</div>
               <v-row class="mt-2">
@@ -153,7 +154,7 @@ export default {
           localStorage.setItem("tkc", signUp.data.token);
           this.$emit('showSnackbar', { snackbar: true, text: signUp.message });
           that.isloading = false;
-          window.location.href = '/';
+          window.location.href = '/tim-viec-lam/tat-ca-viec-lam';
         } else {
           this.$emit('showSnackbar', { snackbar: true, text: signUp.message });
           that.isloading = false;

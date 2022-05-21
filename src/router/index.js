@@ -10,6 +10,7 @@ import ChangePassword from '../views/Auth/ChangePassword.vue'
 
 //* job
 import Job from '../views/jobs/Job.vue'
+import ReviewJob from '../views/jobs/ReviewJob.vue'
 
 //* Error
 import Error404 from '../views/Errors/Error404.vue'
@@ -47,6 +48,11 @@ const routes = [{
         path: '/tim-viec-lam/tat-ca-viec-lam',
         name: 'Job',
         component: Job
+    },
+    {
+        path: '/tim-viec-lam/review-viec-lam/:slug',
+        name: 'ReviewJob',
+        component: ReviewJob
     },
     //* Error
     {

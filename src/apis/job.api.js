@@ -16,4 +16,18 @@ export default class Job {
             return error.response.data;
         }
     }
+
+    static async getByIdJob(query, slug) {
+        try {
+            const { key } = query;
+            const res = await axios.get(`${url}/${slug}`, {
+                params: {
+                    key
+                }
+            });
+            return res.data;
+        } catch (error) {
+            return error.response.data;
+        }
+    }
 }

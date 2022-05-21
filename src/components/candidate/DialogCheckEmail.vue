@@ -20,7 +20,8 @@
                             mã
                             vào ô dưới đây.</p>
                         <div>
-                            <v-otp-input length="6" dense type="number" v-model="otp"  :color="website.color.tealMain.color" @finish="onFinish"></v-otp-input>
+                            <v-otp-input length="6" dense type="number" v-model="otp"
+                                :color="website.color.tealMain.color" @finish="onFinish"></v-otp-input>
                             <v-overlay absolute :value="isLoadingOTP">
                                 <v-progress-circular indeterminate color="primary"></v-progress-circular>
                             </v-overlay>
@@ -119,6 +120,7 @@ export default {
                 that.$emit('showSnackbar', { snackbar: true, text: checkEmailOTP.message });
             }
             else {
+                that.isLoadingOTP = false;
                 that.otp = '';
                 that.$emit('showSnackbar', { snackbar: true, text: checkEmailOTP.message });
             }

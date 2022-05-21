@@ -68,7 +68,7 @@
                                     <v-list dense>
                                         <v-list-item @click.native="scrollToTop()" @click="changeLinkExp()"
                                             :style="`background-color: ${!$route.query.exp ? '#e0e0e0' : ''}`" link>
-                                            <v-list-item-title>Tất cả cấp bậc</v-list-item-title>
+                                            <v-list-item-title>Tất cả kinh nghiệm</v-list-item-title>
                                         </v-list-item>
                                         <v-list-item @click.native="scrollToTop()" @click="changeLinkExp(exp)"
                                             :style="`background-color: ${$route.query.exp == exp ? '#e0e0e0' : ''}`"
@@ -122,63 +122,75 @@
                 :style="`${isMarginTop ? 'margin-top: 190px' : 'margin-top: 140px'}; box-shadow: none;`">
                 <v-container>
                     <v-card style="box-shadow: none;" class="border w-100">
-                        <v-menu transition="slide-y-transition" bottom offset-y open-on-hover>
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-btn class="ml-1" text v-bind="attrs" v-on="on" height="40">
-                                    {{ $route.query.rank ? $route.query.rank : 'Tất cả cấp bậc' }} <v-icon size="20">
-                                        mdi-menu-down</v-icon>
-                                </v-btn>
-                            </template>
-                            <v-list dense>
-                                <v-list-item @click.native="scrollToTop()" @click="changeLinkRank()"
-                                    :style="`background-color: ${!$route.query.rank ? '#e0e0e0' : ''}`" link>
-                                    <v-list-item-title>Tất cả cấp bậc</v-list-item-title>
-                                </v-list-item>
-                                <v-list-item @click.native="scrollToTop()" @click="changeLinkRank(rank)"
-                                    :style="`background-color: ${$route.query.rank == rank ? '#e0e0e0' : ''}`"
-                                    v-for="rank in ranks" :key="rank" link>
-                                    <v-list-item-title>{{ rank }}</v-list-item-title>
-                                </v-list-item>
-                            </v-list>
-                        </v-menu>
-                        <v-menu transition="slide-y-transition" bottom offset-y open-on-hover>
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-btn class="ml-1" text v-bind="attrs" v-on="on" height="40">
-                                    {{ $route.query.exp ? $route.query.exp : 'Tất cả kinh nghiệm' }} <v-icon size="20">
-                                        mdi-menu-down</v-icon>
-                                </v-btn>
-                            </template>
-                            <v-list dense>
-                                <v-list-item @click.native="scrollToTop()" @click="changeLinkExp()"
-                                    :style="`background-color: ${!$route.query.exp ? '#e0e0e0' : ''}`" link>
-                                    <v-list-item-title>Tất cả cấp bậc</v-list-item-title>
-                                </v-list-item>
-                                <v-list-item @click.native="scrollToTop()" @click="changeLinkExp(exp)"
-                                    :style="`background-color: ${$route.query.exp == exp ? '#e0e0e0' : ''}`"
-                                    v-for="exp in exps" :key="exp" link>
-                                    <v-list-item-title>{{ exp }}</v-list-item-title>
-                                </v-list-item>
-                            </v-list>
-                        </v-menu>
-                        <v-menu transition="slide-y-transition" bottom offset-y open-on-hover>
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-btn class="ml-1" text v-bind="attrs" v-on="on" height="40">
-                                    {{ $route.query.classify ? $route.query.classify : 'Tất cả phân loại' }}
-                                    <v-icon size="20">mdi-menu-down</v-icon>
-                                </v-btn>
-                            </template>
-                            <v-list dense>
-                                <v-list-item @click.native="scrollToTop()" @click="changeLinkClassify()"
-                                    :style="`background-color: ${!$route.query.classify ? '#e0e0e0' : ''}`" link>
-                                    <v-list-item-title>Tất cả phân loại</v-list-item-title>
-                                </v-list-item>
-                                <v-list-item @click.native="scrollToTop()" @click="changeLinkClassify(classify)"
-                                    :style="`background-color: ${$route.query.classify == classify ? '#e0e0e0' : ''}`"
-                                    v-for="classify in classifies" :key="classify" link>
-                                    <v-list-item-title>{{ classify }}</v-list-item-title>
-                                </v-list-item>
-                            </v-list>
-                        </v-menu>
+                        <v-tabs show-arrows>
+                            <v-tab>
+                                <v-menu transition="slide-y-transition" bottom offset-y open-on-hover>
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <div style="font-size: 11px" v-bind="attrs" v-on="on">{{ $route.query.rank ?
+                                                $route.query.rank : 'Tất cả cấp bậc'
+                                        }} <v-icon size="20">
+                                                mdi-menu-down</v-icon>
+                                        </div>
+                                    </template>
+                                    <v-list dense>
+                                        <v-list-item @click.native="scrollToTop()" @click="changeLinkRank()"
+                                            :style="`background-color: ${!$route.query.rank ? '#e0e0e0' : ''}`" link>
+                                            <v-list-item-title>Tất cả cấp bậc</v-list-item-title>
+                                        </v-list-item>
+                                        <v-list-item @click.native="scrollToTop()" @click="changeLinkRank(rank)"
+                                            :style="`background-color: ${$route.query.rank == rank ? '#e0e0e0' : ''}`"
+                                            v-for="rank in ranks" :key="rank" link>
+                                            <v-list-item-title>{{ rank }}</v-list-item-title>
+                                        </v-list-item>
+                                    </v-list>
+                                </v-menu>
+                            </v-tab>
+                            <v-tab>
+                                <v-menu transition="slide-y-transition" bottom offset-y open-on-hover>
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <div style="font-size: 11px" v-bind="attrs" v-on="on">{{ $route.query.exp ?
+                                                $route.query.exp : 'Tất cả kinh nghiệm'
+                                        }} <v-icon size="20">
+                                                mdi-menu-down</v-icon>
+                                        </div>
+                                    </template>
+                                    <v-list dense>
+                                        <v-list-item @click.native="scrollToTop()" @click="changeLinkExp()"
+                                            :style="`background-color: ${!$route.query.exp ? '#e0e0e0' : ''}`" link>
+                                            <v-list-item-title>Tất cả kinh nghiệm</v-list-item-title>
+                                        </v-list-item>
+                                        <v-list-item @click.native="scrollToTop()" @click="changeLinkExp(exp)"
+                                            :style="`background-color: ${$route.query.exp == exp ? '#e0e0e0' : ''}`"
+                                            v-for="exp in exps" :key="exp" link>
+                                            <v-list-item-title>{{ exp }}</v-list-item-title>
+                                        </v-list-item>
+                                    </v-list>
+                                </v-menu>
+                            </v-tab>
+                            <v-tab>
+                                <v-menu transition="slide-y-transition" bottom offset-y open-on-hover>
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <div style="font-size: 11px" v-bind="attrs" v-on="on"> {{ $route.query.classify
+                                                ? $route.query.classify : 'Tất cả phân loại'
+                                        }}
+                                            <v-icon size="20">mdi-menu-down</v-icon>
+                                        </div>
+                                    </template>
+                                    <v-list dense>
+                                        <v-list-item @click.native="scrollToTop()" @click="changeLinkClassify()"
+                                            :style="`background-color: ${!$route.query.classify ? '#e0e0e0' : ''}`"
+                                            link>
+                                            <v-list-item-title>Tất cả phân loại</v-list-item-title>
+                                        </v-list-item>
+                                        <v-list-item @click.native="scrollToTop()" @click="changeLinkClassify(classify)"
+                                            :style="`background-color: ${$route.query.classify == classify ? '#e0e0e0' : ''}`"
+                                            v-for="classify in classifies" :key="classify" link>
+                                            <v-list-item-title>{{ classify }}</v-list-item-title>
+                                        </v-list-item>
+                                    </v-list>
+                                </v-menu>
+                            </v-tab>
+                        </v-tabs>
                     </v-card>
                 </v-container>
             </v-app-bar>
@@ -188,7 +200,8 @@
             <v-container>
                 <v-row>
                     <v-col cols="12" md="3" v-if="!isMobile">
-                        <v-card :style="`box-shadow: none; border-radius: 0px 0px 0px 0px`" class="border">
+                        <v-card :style="`box-shadow: none; border-radius: 0px 0px 0px 0px`" class="border"
+                            :loading="isLoadingCarrer">
                             <v-list dense shaped>
 
                                 <v-list-item-group :color="website.color.tealMain.color">
@@ -253,46 +266,78 @@
                                 </v-col>
                             </v-row>
                         </v-card>
-                        <v-row class="mt-2">
-                            <v-col cols="12" v-for="job in resultQueryJobs" :key="job._id">
-                                <v-card link class="mx-auto w-100 animation-hover" outlined
+                        <v-row class="mt-2" v-if="isLoadingJob">
+                            <v-col cols="12" v-for="n in 10" :key="n">
+                                <v-card class="mx-auto w-100 animation-hover" outlined>
+                                    <div class="p-4">
+                                        <v-row>
+                                            <v-col cols="4" sm="2">
+                                                <v-skeleton-loader width="100" height="68" v-bind="attrs" type="image">
+                                                </v-skeleton-loader>
+                                            </v-col>
+                                            <v-col cols="8" sm="8">
+                                                <v-skeleton-loader v-bind="attrs" type="list-item-three-line"
+                                                    style="margin-top: -20px;">
+                                                </v-skeleton-loader>
+                                            </v-col>
+                                            <v-col cols="12" sm="2">
+                                                <v-skeleton-loader v-bind="attrs" type="list-item-two-line"
+                                                    style="margin-top: -20px;">
+                                                </v-skeleton-loader>
+                                            </v-col>
+                                        </v-row>
+                                    </div>
+                                </v-card>
+                            </v-col>
+                        </v-row>
+                        <v-row class="mt-2" v-if="!isLoadingJob">
+                            <v-col cols="12" class="text-center" v-if="resultQueryJobs.length == 0">
+                                Hiện tại {{ website.company }} không tìm được vị trí công việc này! Bạn có thể tìm một
+                                công việc khác
+                            </v-col>
+                            <v-col cols="12" v-for="job in resultQueryJobs" :key="job._id"
+                                :style="!isMobile ? '' : 'font-size: 10px;'">
+                                <v-card link class="mx-auto w-100 animation-hover" outlined :to="{ path: `/tim-viec-lam/review-viec-lam/${job.slug}` }"
                                     :style="`border: 1px dashed ${job.idCompany.color}; border-radius: 0px 0px 0px 0px`">
                                     <div class="p-4">
                                         <v-row>
-                                            <v-col cols="12" sm="2">
+                                            <v-col cols="4" sm="2">
                                                 <center class="mt-2">
                                                     <img width="100" height="68" :src="job.idCompany.srcLogo" />
                                                 </center>
                                             </v-col>
-                                            <v-col cols="12" sm="8">
+                                            <v-col cols="8" sm="8">
                                                 <h6>{{ job.name }}</h6>
 
                                                 <div :style="website.color.redMain" class="font-weight-bold mt-2">
-                                                    <span>{{ job.salaryType ? "" : "Trống" }}</span>
-                                                    <span v-if="job.salaryType == 'Trong khoảng'">
-                                                        <span>
-                                                            {{ job.salaryfrom ? job.salaryfrom : "..." }}-{{
-                                                                    job.salaryTo ? job.salaryTo : "..."
-                                                            }}
-                                                            {{ job.currency == "VNĐ" ? "triệu" : "$" }}
+                                                    <div @click="linkLogin()" v-if="!user">Đăng nhập để xem lương</div>
+                                                    <div v-if="user">
+                                                        <span>{{ job.salaryType ? "" : "Trống" }}</span>
+                                                        <span v-if="job.salaryType == 'Trong khoảng'">
+                                                            <span>
+                                                                {{ job.salaryfrom ? job.salaryfrom : "..." }}-{{
+                                                                        job.salaryTo ? job.salaryTo : "..."
+                                                                }}
+                                                                {{ job.currency == "VNĐ" ? "triệu" : "$" }}
+                                                            </span>
                                                         </span>
-                                                    </span>
-                                                    <span v-if="job.salaryType == 'Thỏa thuận'">
-                                                        <span>Thỏa thuận</span>
-                                                    </span>
-                                                    <span v-if="job.salaryType == 'Từ'">
-                                                        <span>
-                                                            Từ {{ job.salaryfrom ? job.salaryfrom : "..." }}
-                                                            {{ job.currency == "VNĐ" ? "triệu" : "$" }}
-                                                            trở lên
+                                                        <span v-if="job.salaryType == 'Thỏa thuận'">
+                                                            <span>Thỏa thuận</span>
                                                         </span>
-                                                    </span>
-                                                    <span v-if="job.salaryType == 'Đến'">
-                                                        <span>
-                                                            Lên đến {{ job.salaryTo ? job.salaryTo : "..." }}
-                                                            {{ job.currency == "VNĐ" ? "triệu" : "$" }}
+                                                        <span v-if="job.salaryType == 'Từ'">
+                                                            <span>
+                                                                Từ {{ job.salaryfrom ? job.salaryfrom : "..." }}
+                                                                {{ job.currency == "VNĐ" ? "triệu" : "$" }}
+                                                                trở lên
+                                                            </span>
                                                         </span>
-                                                    </span>
+                                                        <span v-if="job.salaryType == 'Đến'">
+                                                            <span>
+                                                                Lên đến {{ job.salaryTo ? job.salaryTo : "..." }}
+                                                                {{ job.currency == "VNĐ" ? "triệu" : "$" }}
+                                                            </span>
+                                                        </span>
+                                                    </div>
                                                 </div>
                                                 <div>{{ job.jobLocation }} ({{ job.workLocation }})</div>
                                                 <div class="mt-3">
@@ -324,15 +369,19 @@ export default {
     name: 'Job',
     props: ['website', 'user', 'offset_top'],
     async created() {
+        this.isLoadingJob = true;
+        this.isLoadingCarrer = true;
         const pathQuery = this.$route.query;
         const jobs = await Job.getJob({ key: 'job', status: 'all' });
         this.jobs = jobs.data;
 
         const carrers = await Term.getTerm({ key: 'term', type: 1 });
         this.carrers = carrers.data;
+        this.isLoadingCarrer = false;
 
         const provinces = await Term.getTerm({ key: 'term', type: 2 });
         this.provinces = provinces.data;
+        this.provinces.unshift('Tất cả tỉnh thành')
 
         const ranks = await Term.getTerm({ key: 'term', type: 7 });
         this.ranks = ranks.data;
@@ -347,10 +396,12 @@ export default {
         this.searchQueryJobs = pathQuery.search;
         this.searchQueryProvince = pathQuery.province;
 
+        this.isLoadingJob = false;
 
     },
     computed: {
         resultQueryCarrers() {
+            this.offLoadingCarrer();
             if (this.searchQueryCarrers) {
                 return this.carrers.filter((item) => {
                     return this.searchQueryCarrers
@@ -366,25 +417,19 @@ export default {
             }
         },
         resultQueryJobs() {
-            const carrer = this.$route.query.carrer;
-            const search = this.$route.query.search;
-            const province = this.$route.query.province;
-            const rank = this.$route.query.rank;
-            const exp = this.$route.query.exp;
-            const classify = this.$route.query.classify;
+            this.offLoadingJob();
+            const { carrer, search, province, rank, exp, classify } = this.$route.query;
             if (search || carrer || province || rank || exp) {
                 const jobs = this.jobs.filter(job => (search ? job.name.toLowerCase().includes(search.toLowerCase()) : job.name.toLowerCase().includes(''))
                     && (carrer ? job.mainJob.toLowerCase() == carrer.toLowerCase() : job.name.toLowerCase().includes(''))
-                    && (province ? job.workLocation.toLowerCase() == province.toLowerCase() : job.name.toLowerCase().includes(''))
+                    && (province && province !== 'Tất cả tỉnh thành' ? job.workLocation.toLowerCase() == province.toLowerCase() : job.name.toLowerCase().includes(''))
                     && (rank ? job.level.toLowerCase() == rank.toLowerCase() : job.name.toLowerCase().includes(''))
                     && (exp ? job.exp.toLowerCase() == exp.toLowerCase() : job.name.toLowerCase().includes(''))
                     && (classify ? job.workingForm.toLowerCase() == classify.toLowerCase() : job.name.toLowerCase().includes('')))
-                return jobs;
+                return [...jobs];
 
             } else {
-
-                return [...this.jobs];
-
+                return this.jobs;
             }
         },
     },
@@ -405,116 +450,112 @@ export default {
             },
             isMobile: false,
             isMarginTop: false,
+            isLoadingJob: false,
+            isLoadingCarrer: false,
+            route: {
+                carrer: this.$route.query.carrer,
+                rank: this.$route.query.rank,
+                exps: this.$route.query.exp,
+                classify: this.$route.query.classify
+            }
         }
     },
     mounted() {
         this.onResize()
     },
     methods: {
-        loadJobLink(query) {
-            let that = this
-            const { search } = query
+        linkLogin()
+        {
+            window.location.href = '/dang-nhap';
+        },
+        offLoadingJob() {
+            this.isLoadingJob = true;
+            setTimeout(() => { this.isLoadingJob = false; }, 1000)
+        },
+        offLoadingCarrer() {
+            this.isLoadingCarrer = true;
+            setTimeout(() => { this.isLoadingCarrer = false; }, 1000)
         },
         changeLink() {
             let that = this;
-            let carrer = that.$route.query.carrer;
-            let rank = that.$route.query.rank;
-            let exp = that.$route.query.exp;
-            let classify = that.$route.query.classify;
-            this.$router.push({
+            that.$router.push({
                 name: 'Job',
                 query: {
                     search: that.searchQueryJobs,
-                    carrer,
-                    rank,
-                    exp,
-                    classify,
+                    carrer: that.route.carrer,
+                    rank: that.route.rank,
+                    exp: that.route.exp,
+                    classify: that.route.classify,
                     province: that.searchQueryProvince
                 }
             })
         },
         changeLinkCarrer(carrer) {
             let that = this;
-            let rank = that.$route.query.rank;
-            let exp = that.$route.query.exp;
-            let classify = that.$route.query.classify;
-            this.$router.push({
+            that.$router.push({
                 name: 'Job',
                 query: {
                     search: that.searchQueryJobs,
                     carrer,
-                    rank,
-                    classify,
-                    exp,
+                    rank: that.route.rank,
+                    classify: that.route.classify,
+                    exp: that.route.exp,
                     province: that.searchQueryProvince
                 }
             })
         },
         changeLinkRank(rank) {
             let that = this;
-            let carrer = that.$route.query.carrer;
-            let exp = that.$route.query.exp;
-            let classify = that.$route.query.classify;
-            this.$router.push({
+            that.$router.push({
                 name: 'Job',
                 query: {
                     search: that.searchQueryJobs,
                     rank,
-                    exp,
-                    classify,
-                    carrer,
+                    exp: that.route.exp,
+                    classify: that.route.classify,
+                    carrer: that.route.carrer,
                     province: that.searchQueryProvince
                 }
             })
         },
         changeLinkExp(exp) {
             let that = this;
-            let carrer = that.$route.query.carrer;
-            let rank = that.$route.query.rank;
-            let classify = that.$route.query.classify;
-            this.$router.push({
+            that.$router.push({
                 name: 'Job',
                 query: {
                     search: that.searchQueryJobs,
-                    rank,
-                    carrer,
+                    rank: that.route.rank,
+                    carrer: that.route.carrer,
                     exp,
-                    classify,
+                    classify: that.route.classify,
                     province: that.searchQueryProvince
                 }
             })
         },
         changeLinkClassify(classify) {
             let that = this;
-            let carrer = that.$route.query.carrer;
-            let rank = that.$route.query.rank;
-            let exp = that.$route.query.exp;
-            this.$router.push({
+            that.$router.push({
                 name: 'Job',
                 query: {
                     search: that.searchQueryJobs,
-                    rank,
-                    carrer,
+                    rank: that.route.rank,
+                    carrer: that.route.carrer,
                     classify,
-                    exp,
+                    exp: that.route.exp,
                     province: that.searchQueryProvince
                 }
             })
         },
         changeLinkProvince() {
             let that = this;
-            let carrer = that.$route.query.carrer;
-            let rank = that.$route.query.rank;
-            let exp = that.$route.query.exp;
-            let classify = that.$route.query.classify;
-            this.$router.push({
+            that.$router.push({
                 name: 'Job',
                 query: {
                     search: that.searchQueryJobs,
-                    carrer,
-                    rank,
-                    exp,
-                    classify,
+                    carrer: that.route.carrer,
+                    rank: that.route.rank,
+                    exp: that.route.exp,
+                    classify: that.route.classify,
                     province: that.searchQueryProvince
 
                 }
