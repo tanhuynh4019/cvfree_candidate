@@ -24,6 +24,7 @@
                         <v-icon>mdi-login</v-icon>Đăng nhập / Đăng ký
                     </v-btn>
                     <v-btn v-if="!isMobile" class="ml-1" color="#B2DFDB">Tìm ứng viên</v-btn>
+
                     <v-app-bar-nav-icon :class="isMobile ? 'float-end' : ''" color="white" v-if="!isMenu"
                         @click="drawer = !drawer"></v-app-bar-nav-icon>
                 </div>
@@ -44,6 +45,10 @@
                     <span class="ml-1 text-white">
                         <DropdownUser :user="user" :website="website" />
                     </span>
+
+
+                    <v-app-bar-nav-icon :class="isMobile ? 'float-end' : ''" color="white" v-if="!isMenu"
+                        @click="drawer = !drawer"></v-app-bar-nav-icon>
                 </div>
             </v-responsive>
         </v-app-bar>
@@ -117,8 +122,7 @@ export default {
         this.onResize();
     },
     methods: {
-        linkLogin()
-        {
+        linkLogin() {
             window.location.href = '/dang-nhap';
         },
         onResize() {

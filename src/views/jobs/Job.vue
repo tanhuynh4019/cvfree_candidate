@@ -297,7 +297,7 @@
                             </v-col>
                             <v-col cols="12" v-for="job in resultQueryJobs" :key="job._id"
                                 :style="!isMobile ? '' : 'font-size: 10px;'">
-                                <v-card link class="mx-auto w-100 animation-hover" outlined :to="{ path: `/tim-viec-lam/review-viec-lam/${job.slug}` }"
+                                <v-card link class="mx-auto w-100 animation-hover" @click.native="scrollToTop()" outlined :to="{ path: `/tim-viec-lam/review-viec-lam/${job.slug}` }"
                                     :style="`border: 1px dashed ${job.idCompany.color}; border-radius: 0px 0px 0px 0px`">
                                     <div class="p-4">
                                         <v-row>

@@ -46,16 +46,35 @@ export default {
         srcLogo: 'https://templates.hibootstrap.com/jecto/default/assets/img/logo-three.png',
         srcLogoNoText: 'https://templates.hibootstrap.com/jecto/default/assets/img/home-three/title-img.png',
         banner: {
-          textMain: 'Chúng tôi sẽ giúp bạn tìm 1',
+          setting: {
+            bgCard: '#417575',
+            bgBtn: '#004D40',
+            colorMain: '#004D40',
+            heightInputSearch: 60,
+            heightInputCarrer: 48,
+            heightInputProvince: 48
+
+          },
+          input: {
+            labelSearch: 'Tên công việc, vị trí ứng tuyển mong muốn',
+            labelCarrer: 'Ngành nghề',
+            labelProvince: 'Địa điểm',
+            iconSearch: 'mdi-magnify',
+            iconCarrer: 'mdi-drag',
+            iconProvince: 'mdi-map-marker-outline',
+          },
+          button: {
+            textBtnSearch: 'Tìm việc'
+          },
+          textMain: 'Chúng tôi sẽ giúp bạn tìm',
           textSub: 'được công việc mong muốn của mình',
-          textSub_v1: 'Người dùng đã đăng ký',
-          textSub_v2: 'Nhà tuyển dụng toàn cầu',
-          textSub_v3: 'Công việc có sẵn',
-          iconInputSeach_v1: 'mdi-magnify',
-          iconInputSeach_v2: 'mdi-drag',
-          iconInputSeach_v3: 'mdi-map-marker-outline',
-          textBtnSeach: 'Tìm việc',
+          countCandidate: 'Người dùng đã đăng ký',
+          countEmployer: 'Nhà tuyển dụng toàn cầu',
+          countJob: 'Công việc có sẵn',
           srcImageRight: 'https://templates.hibootstrap.com/jecto/default/assets/img/home-three/banner-main.png'
+        },
+        reviewJob: {
+
         },
         job: {
           titleSubGood: 'Việc làm được chọn lọc hàng đầu',
