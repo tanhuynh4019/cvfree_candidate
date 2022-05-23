@@ -113,7 +113,9 @@ export default {
                         },
                         {
                             name: "Việc làm đã lưu",
-                            link: "",
+                            link: {
+                                path: "/viec-lam/viec-lam-cua-toi",
+                            },
                             icon: "mdi-cards-heart",
                         },
                         {

@@ -12,62 +12,60 @@
             <div class="mt-10">
                 <v-row>
                     <v-col cols="12" md="6" v-for="job in jobs" :key="job._id">
-                        <v-card link class="mx-auto w-100 animation-hover" outlined
-                            :style="`border: 1px dashed ${website.color.redMain.color}`">
-                            <div class="p-4">
-                                <v-row>
-                                    <v-col cols="4" xs="2" sm="2">
-                                        <img width="100%" height="68" :src="job.idCompany.srcLogo" />
-                                    </v-col>
-                                    <v-col cols="8" xs="7" sm="7">
-                                        <h6>{{ job.name.length > 50 ? `${job.name.substring(0, 50)}...` :
-                                                `${job.name}..............................`
-                                        }}</h6>
-                                        <div :style="website.color.redMain" class="font-weight-bold">
-                                            <span>{{ job.salaryType ? "" : "Trống" }}</span>
-                                            <span v-if="job.salaryType == 'Trong khoảng'">
-                                                <span>
-                                                    {{ job.salaryfrom ? job.salaryfrom : "..." }}-{{
-                                                            job.salaryTo ? job.salaryTo : "..."
-                                                    }}
-                                                    {{ job.currency == "VNĐ" ? "triệu" : "$" }}
-                                                </span>
-                                            </span>
-                                            <span v-if="job.salaryType == 'Thỏa thuận'">
-                                                <span>Thỏa thuận</span>
-                                            </span>
-                                            <span v-if="job.salaryType == 'Từ'">
-                                                <span>
-                                                    Từ {{ job.salaryfrom ? job.salaryfrom : "..." }}
-                                                    {{ job.currency == "VNĐ" ? "triệu" : "$" }}
-                                                    trở lên
-                                                </span>
-                                            </span>
-                                            <span v-if="job.salaryType == 'Đến'">
-                                                <span>
-                                                    Lên đến {{ job.salaryTo ? job.salaryTo : "..." }}
-                                                    {{ job.currency == "VNĐ" ? "triệu" : "$" }}
-                                                </span>
-                                            </span> , Còn {{ job.numberOfRecruitments }} ứng viên
-                                        </div>
-                                        <div>{{ job.jobLocation.length > 30 ? `${job.jobLocation.substring(0, 30)}...` :
-                                                job.jobLocation
-                                        }} ({{ job.workLocation }})</div>
-                                        <div class="mt-3">
-                                            <v-chip label small>{{ job.vacancies }}</v-chip>
-                                        </div>
-                                    </v-col>
-                                    <v-col cols="12" xs="3" sm="3">
-                                        <v-btn class="w-100" :color="website.color.tealMain.color" dark depressed small>
-                                            {{ job.workingForm }}</v-btn>
-
-                                        <div class="mt-2">
-                                            <i>Còn 5 ngày</i>
-                                        </div>
-                                    </v-col>
-                                </v-row>
+                        <div class="blog-card" :style="`border: 1px dashed ${website.color.redMain.color}`">
+                            <div class="meta">
+                                <div class="photo" :style="`background-image: url(${job.idCompany.srcLogo})`">
+                                </div>
+                                <ul class="details">
+                                    <li class="author">Còn lại: {{ job.numberOfRecruitments }} ứng viên</li>
+                                    <li class="date mt-2">Ngày hết hạn: {{ job.deadline }}</li>
+                                    <li class="tags mt-2">
+                                        {{ job.mainJob }}
+                                    </li>
+                                </ul>
                             </div>
-                        </v-card>
+                            <div class="description">
+                                <h1>{{ job.name.length > 50 ? `${job.name.substring(0, 50)}...` :
+                                        `${job.name}`
+                                }} <span :style="website.color.tealMain">({{ job.vacancies }})</span></h1>
+                                <h2 class="salary" :style="website.color.redMain">
+                                    <span>{{ job.salaryType ? "" : "Trống" }}</span>
+                                    <span v-if="job.salaryType == 'Trong khoảng'">
+                                        <span>
+                                            {{ job.salaryfrom ? job.salaryfrom : "..." }}-{{
+                                                    job.salaryTo ? job.salaryTo : "..."
+                                            }}
+                                            {{ job.currency == "VNĐ" ? "triệu" : "$" }}
+                                        </span>
+                                    </span>
+                                    <span v-if="job.salaryType == 'Thỏa thuận'">
+                                        <span>Thỏa thuận</span>
+                                    </span>
+                                    <span v-if="job.salaryType == 'Từ'">
+                                        <span>
+                                            Từ {{ job.salaryfrom ? job.salaryfrom : "..." }}
+                                            {{ job.currency == "VNĐ" ? "triệu" : "$" }}
+                                            trở lên
+                                        </span>
+                                    </span>
+                                    <span v-if="job.salaryType == 'Đến'">
+                                        <span>
+                                            Lên đến {{ job.salaryTo ? job.salaryTo : "..." }}
+                                            {{ job.currency == "VNĐ" ? "triệu" : "$" }}
+                                        </span>
+                                    </span>
+                                </h2>
+                                <p> <i class="mdi mdi-map-marker"></i> {{ job.jobLocation.length > 30 ?
+                                        `${job.jobLocation.substring(0, 30)}...` :
+                                        job.jobLocation
+                                }} ({{ job.workLocation }})</p>
+                                <v-btn class="mt-2" :color="website.color.tealMain.color" dark depressed small>
+                                    {{ job.workingForm }}</v-btn>
+                                <p class="read-more">
+                                    <a href="#">Ứng tuyển ngay</a>
+                                </p>
+                            </div>
+                        </div>
                     </v-col>
                 </v-row>
                 <p class="mt-10 text-center">
@@ -884,16 +882,190 @@ h2 {
 }
 
 p {
-    font-size: 17px;
+    font-size: 15px;
 }
 
-.animation-hover {
-    transition-duration: .3s;
-    transition-property: transform;
-    transition-timing-function: ease-out;
+.blog-card {
+    display: flex;
+    flex-direction: column;
+    margin: -1rem auto;
+    margin-bottom: 1.6%;
+    background: #fff;
+    line-height: 1.1;
+    font-family: sans-serif;
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 0;
 }
 
-.animation-hover:hover {
-    transform: translateY(-5px);
+h1 {
+    font-size: 16px !important;
+}
+
+.salary {
+    font-size: 14px !important;
+    font-weight: bold !important;
+}
+
+.blog-card a {
+    color: inherit;
+}
+
+.blog-card a:hover {
+    color: #004D40;
+}
+
+.blog-card:hover .photo {
+    transform: scale(1.3) rotate(3deg);
+}
+
+.blog-card .meta {
+    position: relative;
+    z-index: 0;
+    height: 200px;
+}
+
+.blog-card .photo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-size: 150px 120px;
+    background-position: center;
+    transition: transform .2s;
+}
+
+.blog-card .details,
+.blog-card .details ul {
+    margin: auto;
+    padding: 0;
+    list-style: none;
+}
+
+.blog-card .details {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -100%;
+    margin: auto;
+    transition: left .2s;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 10px;
+    width: 100%;
+    font-size: .9rem;
+}
+
+.blog-card .details a {
+    text-decoration: dotted underline;
+}
+
+.blog-card .details ul li {
+    display: inline-block;
+}
+
+.blog-card .details .tags li {
+    margin-right: 2px;
+}
+
+.blog-card .details .tags li:first-child {
+    margin-left: -4px;
+}
+
+.blog-card .description {
+    padding: 1rem;
+    background: #fff;
+    position: relative;
+    z-index: 1;
+}
+
+.blog-card .description h1 {
+    line-height: 1;
+    margin: 0;
+    font-size: 1.7rem;
+}
+
+.blog-card .description h2 {
+    font-size: 1rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    color: #a2a2a2;
+    margin-top: 5px;
+}
+
+.blog-card .description .read-more {
+    text-align: right;
+}
+
+.blog-card .description .read-more a {
+    color: #004D40;
+    display: inline-block;
+    position: relative;
+}
+
+.blog-card .description .read-more a:after {
+    content: "\f061";
+    font-family: FontAwesome;
+    margin-left: -10px;
+    opacity: 0;
+    vertical-align: middle;
+    transition: margin .3s, opacity .3s;
+}
+
+.blog-card .description .read-more a:hover:after {
+    margin-left: 5px;
+    opacity: 1;
+}
+
+.blog-card p {
+    position: relative;
+    margin: 1rem 0 0;
+}
+
+.blog-card p:first-of-type {
+    margin-top: 1.25rem;
+}
+
+.blog-card p:first-of-type:before {
+    content: "";
+    position: absolute;
+    height: 5px;
+    background: #004D40;
+    width: 35px;
+    top: -0.75rem;
+    border-radius: 3px;
+}
+
+.blog-card:hover .details {
+    left: 0%;
+}
+
+@media (min-width: 640px) {
+    .blog-card {
+        flex-direction: row;
+        max-width: 700px;
+    }
+
+    .blog-card .meta {
+        flex-basis: 40%;
+        height: auto;
+    }
+
+    .blog-card .description {
+        flex-basis: 60%;
+    }
+
+    .blog-card .description:before {
+        transform: skewX(-3deg);
+        content: "";
+        background: #fff;
+        width: 30px;
+        position: absolute;
+        left: -10px;
+        top: 0;
+        bottom: 0;
+        z-index: -1;
+    }
 }
 </style>

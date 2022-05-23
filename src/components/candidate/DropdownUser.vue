@@ -49,7 +49,7 @@
                             </v-list-item-content>
                         </v-list-item>
                         <v-divider></v-divider>
-                        <v-list-item v-for="menu in menu.systems " :key="menu.name">
+                        <v-list-item v-for="menu in menu.systems " :key="menu.name"  :to="menu.link">
                             <v-list-item-icon>
                                 <v-icon v-text="menu.icon"></v-icon>
                             </v-list-item-icon>
@@ -173,7 +173,9 @@ export default {
                     {
                         icon: 'mdi-heart-box',
                         name: 'Việc làm đã lưu',
-                        link: ''
+                        link: {
+                            path: "/viec-lam/viec-lam-cua-toi",
+                        },
                     }
                 ]
             }

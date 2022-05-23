@@ -73,9 +73,8 @@
                                     <div class="mt-5" style="margin-left: -25px;">
                                         <i>Hết hạn: {{ formatDate(job.deadline) }}</i>
                                         <center>
-                                            <SaveJob :user="user" :slug-job="job.slug"/>
-                                            <v-btn text dark><i class="mdi mdi-share-variant-outline"></i>Chia sẻ
-                                            </v-btn>
+                                            <CreateFavoriteJob :user="user" :slug-job="job.slug" :dark="true"/>
+                                            <ShareFavoriteJob :user="user" :website="website" :slug-job="job.slug" />
                                             <v-btn text dark><i class="mdi mdi-alert-decagram"></i>Báo cáo</v-btn>
                                         </center>
                                     </div>
@@ -101,14 +100,6 @@
                                     tuyển
                                     ngay
                                 </v-btn>
-
-                                <div v-if="!isMobile">
-                                    <center>
-                                        <v-btn text><i class="mdi mdi-heart-multiple-outline"></i>Lưu</v-btn>
-                                        <v-btn text><i class="mdi mdi-share-variant-outline"></i>Chia sẻ</v-btn>
-                                        <v-btn text><i class="mdi mdi-alert-decagram"></i>Báo cáo</v-btn>
-                                    </center>
-                                </div>
                             </div>
                         </v-col>
                     </v-row>
@@ -144,7 +135,7 @@
                 <v-container>
                     <v-row>
                         <v-col cols="12" md="8">
-                            <v-tabs v-model="tabModel" :color="website.color.tealMain.color" show-arrows>
+                            <v-tabs v-model="tabModel" :color="website.color.tealMain.color" show-arrows v-if="offset_top < 290">
                                 <v-tab @click="changeLinkTab('')">
                                     <v-icon left>
                                         mdi-briefcase-check
@@ -408,7 +399,8 @@
 import Format from "../../modules/Format.module";
 
 import LoadingDetailsJob from '../../components/loading/LoadingDetailsJob.vue';
-import SaveJob from '../../components/candidate/SaveJob.vue';
+import CreateFavoriteJob from '../../components/candidate/CreateFavoriteJob.vue';
+import ShareFavoriteJob from '../../components/candidate/ShareFavoriteJob.vue';
 
 import Job from '../../apis/job.api';
 export default {
@@ -440,7 +432,8 @@ export default {
     },
     components: {
         LoadingDetailsJob,
-        SaveJob
+        CreateFavoriteJob,
+        ShareFavoriteJob
     },
     methods: {
         loadTab(hash) {
