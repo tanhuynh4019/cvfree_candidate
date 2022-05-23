@@ -129,6 +129,12 @@ export default {
     props: ['website', 'user'],
     name: 'MyJob',
     async created() {
+
+        if(!this.user)
+        {
+            window.location.href = '/khong-ton-tai-404';
+        }
+
         const favorites = await Favorite.getFavoriteJob({ key: 'favorite' });
         this.favorites = favorites.data;
         this.isLoading = false;

@@ -25,6 +25,9 @@
                             <v-icon>mdi-login</v-icon>Đăng nhập / Đăng ký
                         </v-btn>
                         <v-btn v-if="!isMobile" class="ml-1" color="#B2DFDB">Tìm ứng viên</v-btn>
+
+                        <v-app-bar-nav-icon :class="isIpad ? '' : ''" color="white" v-if="isIpad"
+                            @click="drawer = !drawer"></v-app-bar-nav-icon>
                     </div>
 
                     <v-app-bar-nav-icon :class="isMobile ? 'float-end' : ''" color="white" v-if="isMobile"
@@ -48,7 +51,7 @@
                         <DropdownUser :user="user" :website="website" />
                     </span>
 
-                    
+
 
                     <v-app-bar-nav-icon :class="isMobile ? 'float-end' : ''" color="white" v-if="!isMenu"
                         @click="drawer = !drawer"></v-app-bar-nav-icon>
@@ -116,6 +119,7 @@ export default {
         isMenu: true,
         isMobile: false,
         drawer: null,
+        isIpad: false,
         windowSize: {
             x: 0,
             y: 0,
@@ -133,12 +137,15 @@ export default {
 
             if (this.windowSize.x < 600) {
                 this.isMenu = false;
+                this.isIpad = false;
                 this.isMobile = true;
             } else if (this.windowSize.x < 1420) {
                 this.isMenu = false;
+                this.isIpad = true;
                 this.isMobile = false;
             } else {
                 this.isMenu = true;
+                this.isIpad = false;
                 this.isMobile = false;
             }
 
