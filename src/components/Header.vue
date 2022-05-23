@@ -18,14 +18,16 @@
             </v-spacer>
 
             <v-responsive max-width="400">
-                <div v-if="!user">
-                    <v-btn @click="linkLogin()" v-if="!isMobile" text dark
-                        :color="offset_top > 750 ? website.color.yellowSubColor.color : ''">
-                        <v-icon>mdi-login</v-icon>Đăng nhập / Đăng ký
-                    </v-btn>
-                    <v-btn v-if="!isMobile" class="ml-1" color="#B2DFDB">Tìm ứng viên</v-btn>
+                <div>
+                    <div v-if="!user">
+                        <v-btn @click="linkLogin()" v-if="!isMobile" text dark
+                            :color="offset_top > 750 ? website.color.yellowSubColor.color : ''">
+                            <v-icon>mdi-login</v-icon>Đăng nhập / Đăng ký
+                        </v-btn>
+                        <v-btn v-if="!isMobile" class="ml-1" color="#B2DFDB">Tìm ứng viên</v-btn>
+                    </div>
 
-                    <v-app-bar-nav-icon :class="isMobile ? 'float-end' : ''" color="white" v-if="!isMenu"
+                    <v-app-bar-nav-icon :class="isMobile ? 'float-end' : ''" color="white" v-if="isMobile"
                         @click="drawer = !drawer"></v-app-bar-nav-icon>
                 </div>
                 <div v-if="user && !isMobile" class="float-end">
@@ -46,6 +48,7 @@
                         <DropdownUser :user="user" :website="website" />
                     </span>
 
+                    
 
                     <v-app-bar-nav-icon :class="isMobile ? 'float-end' : ''" color="white" v-if="!isMenu"
                         @click="drawer = !drawer"></v-app-bar-nav-icon>

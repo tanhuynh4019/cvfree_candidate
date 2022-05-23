@@ -1,6 +1,6 @@
 import axios from 'axios';
 const url = process.env.VUE_APP_BACKEND_URL + '/api/term';
-export default class Job {
+export default class Term {
 
     static async getTerm(query) {
         try {

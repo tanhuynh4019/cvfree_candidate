@@ -73,7 +73,7 @@
                                     <div class="mt-5" style="margin-left: -25px;">
                                         <i>Hết hạn: {{ formatDate(job.deadline) }}</i>
                                         <center>
-                                            <SaveJob :user="user" />
+                                            <SaveJob :user="user" :slug-job="job.slug"/>
                                             <v-btn text dark><i class="mdi mdi-share-variant-outline"></i>Chia sẻ
                                             </v-btn>
                                             <v-btn text dark><i class="mdi mdi-alert-decagram"></i>Báo cáo</v-btn>
