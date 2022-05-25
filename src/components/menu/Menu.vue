@@ -198,7 +198,9 @@ export default {
                     list: [
                         {
                             name: "Danh sách công ty",
-                            link: "",
+                            link: {
+                                path: '/cong-ty/danh-sach-cong-ty'
+                            },
                             icon: "mdi-office-building",
                         },
                         {

@@ -10,44 +10,50 @@
                             }}</span></h1>
                     <!--Tìm kiếm-->
                     <v-card rounded :color="banner.setting.bgCard" class="mb-1 mt-5">
-                        <div class="p-4">
-                            <v-row>
-                                <v-col cols="12">
-                                    <v-text-field :color="banner.setting.colorMain"
-                                        :height="banner.setting.heightInputSearch" clearable flat solo hide-details
-                                        :prepend-inner-icon="banner.input.iconSearch" :label="banner.input.labelSearch">
-                                        <template v-slot:append  v-if="!isMobile">
-                                            <v-fade-transition leave-absolute>
-                                                <v-btn class="w-100" :color="banner.setting.bgBtn" dark height="50"
-                                                    depressed>
-                                                    {{ banner.button.textBtnSearch }}</v-btn>
-                                            </v-fade-transition>
-                                        </template>
-                                    </v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6">
-                                    <v-select :color="banner.setting.colorMain" class="mt-1"
-                                        :height="banner.setting.heightInputCarrer" flat solo hide-details
-                                        :prepend-inner-icon="banner.input.iconCarrer" :label="banner.input.labelCarrer">
-                                    </v-select>
-                                </v-col>
-                                <v-col cols="12" sm="6">
-                                    <v-select :color="banner.setting.colorMain" class="mt-1"
-                                        :height="banner.setting.heightInputProvince" flat solo hide-details
-                                        :prepend-inner-icon="banner.input.iconProvince"
-                                        :label="banner.input.labelProvince">
-                                    </v-select>
-                                </v-col>
-                                <v-col cols="12" v-if="isMobile">
-                                    <v-btn class="w-100" :color="banner.setting.bgBtn" dark height="50" depressed>
-                                        {{ banner.button.textBtnSearch }}</v-btn>
-                                </v-col>
-                                <v-col cols="12" class="text-white">
-                                    Người quản lý &nbsp; &nbsp; Hành chính &nbsp; &nbsp; Android &nbsp; &nbsp; VueJS
-                                    &nbsp; &nbsp; Asp.net
-                                </v-col>
-                            </v-row>
-                        </div>
+                        <v-form ref="formSearch" v-model="formSearch.valid">
+                            <div class="p-4">
+                                <v-row>
+                                    <v-col cols="12">
+                                        <v-text-field v-model="formSearch.value.key" :rules="formSearch.validate.key" :color="banner.setting.colorMain"
+                                            :height="banner.setting.heightInputSearch" clearable flat solo hide-details
+                                            :prepend-inner-icon="banner.input.iconSearch"
+                                            :label="banner.input.labelSearch">
+                                            <template v-slot:append v-if="!isMobile">
+                                                <v-fade-transition leave-absolute>
+                                                    <v-btn @click="searchJob()" class="w-100" :color="banner.setting.bgBtn" dark height="50"
+                                                        depressed>
+                                                        {{ banner.button.textBtnSearch }}</v-btn>
+                                                </v-fade-transition>
+                                            </template>
+                                        </v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6">
+                                        <v-autocomplete v-model="formSearch.value.carrer"
+                                            :color="banner.setting.colorMain" class="mt-1" :items="carrers"
+                                            :height="banner.setting.heightInputCarrer" flat solo hide-details
+                                            :prepend-inner-icon="banner.input.iconCarrer"
+                                            :label="banner.input.labelCarrer">
+                                        </v-autocomplete>
+                                    </v-col>
+                                    <v-col cols="12" sm="6">
+                                        <v-autocomplete v-model="formSearch.value.province"
+                                            :color="banner.setting.colorMain" class="mt-1" :items="provinces"
+                                            :height="banner.setting.heightInputProvince" flat solo hide-details
+                                            :prepend-inner-icon="banner.input.iconProvince"
+                                            :label="banner.input.labelProvince">
+                                        </v-autocomplete>
+                                    </v-col>
+                                    <v-col cols="12" v-if="isMobile">
+                                        <v-btn class="w-100" :color="banner.setting.bgBtn" dark height="50" depressed>
+                                            {{ banner.button.textBtnSearch }}</v-btn>
+                                    </v-col>
+                                    <v-col cols="12" class="text-white">
+                                        Người quản lý &nbsp; &nbsp; Hành chính &nbsp; &nbsp; Android &nbsp; &nbsp; VueJS
+                                        &nbsp; &nbsp; Asp.net
+                                    </v-col>
+                                </v-row>
+                            </div>
+                        </v-form>
                     </v-card>
                     <!--Thống kê-->
                     <div style="margin-top: 10%" class="p-3">
@@ -77,6 +83,7 @@
 </template>
 
 <script>
+import TermApi from "../../apis/term.api";
 export default {
     name: 'BanerHome',
     props: ['website'],
@@ -89,12 +96,47 @@ export default {
                 x: 0,
                 y: 0,
             },
+            formSearch: {
+                valid: true,
+                validate: { },
+                value: {
+                    key: '',
+                    carrer: '',
+                    province: ''
+                }
+            },
+            carrers: [],
+            provinces: []
         }
+    },
+    async created() {
+        const carrer = await TermApi.getTerm({ key: 'term', type: 1 });
+        this.carrers = carrer.data;
+
+        const province = await TermApi.getTerm({ key: 'term', type: 2 });
+        this.provinces = province.data;
     },
     mounted() {
         this.onResize();
     },
     methods: {
+        searchJob()
+        {
+            let that = this;
+            const valid = that.$refs.formSearch.validate();
+            if(valid) {
+                that.$router.push(
+                    {
+                        path: '/tim-viec-lam/tat-ca-viec-lam',
+                        query: {
+                            search: that.formSearch.value.key,
+                            carrer: that.formSearch.value.carrer,
+                            province: that.formSearch.value.province
+                        }
+                    }
+                )
+            }
+        },
         onResize() {
             this.windowSize = { x: window.innerWidth, y: window.innerHeight };
 

@@ -16,6 +16,10 @@ import MyJob from '../views/jobs/candidate/MyJob.vue'
 //* Error
 import Error404 from '../views/Errors/Error404.vue'
 
+//* Company
+import ReviewCompany from '../views/companys/ReviewCompany.vue'
+import IndexCompany from '../views/companys/IndexCompany.vue'
+
 Vue.use(VueRouter)
 
 const routes = [{
@@ -65,6 +69,17 @@ const routes = [{
         path: '/khong-ton-tai-404',
         name: 'Error404',
         component: Error404
+    },
+    //* Company
+    {
+        path: '/cong-ty/review-cong-ty/:slug',
+        name: 'ReviewCompany',
+        component: ReviewCompany
+    },
+    {
+        path: '/cong-ty/danh-sach-cong-ty',
+        name: 'IndexJob',
+        component: IndexCompany
     },
     {
         path: '/about',

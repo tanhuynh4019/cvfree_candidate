@@ -311,9 +311,18 @@
                                         </ul>
                                     </div>
                                     <div class="description">
-                                        <h1>{{ job.name }} <span :style="website.color.tealMain">({{ job.vacancies
-                                        }})</span></h1>
-                                        <div class="mt-2"><i><a>{{ job.idCompany.name }}</a></i></div>
+                                        <router-link style="text-decoration: none;"
+                                            :to="{ path: `/tim-viec-lam/review-viec-lam/${job.slug}` }"
+                                            @click.native="scrollToTop()">
+                                            <h1>
+                                                {{ job.name }}
+                                                <span :style="website.color.tealMain">({{ job.vacancies }})</span>
+                                            </h1>
+                                        </router-link>
+                                        <router-link @click.native="scrollToTop()" style="text-decoration: none;"
+                                            :to="{ path: `/cong-ty/review-cong-ty/${job.idCompany.slug}` }">
+                                            <div class="mt-2"><i><a>{{ job.idCompany.name }}</a></i></div>
+                                        </router-link>
                                         <h2 class="salary" :style="website.color.redMain">
                                             <a @click="linkLogin()" v-if="!user">Đăng nhập để xem lương</a>
                                             <div v-if="user">
@@ -347,8 +356,11 @@
                                         <p> <i class="mdi mdi-map-marker"></i> {{ job.jobLocation }} ({{
                                                 job.workLocation
                                         }})</p>
-                                        <v-btn class="mt-2" :color="website.color.tealMain.color" dark depressed small>
-                                            {{ job.workingForm }}</v-btn>
+                                        <v-btn
+                                            :to="{ path: '/tim-viec-lam/tat-ca-viec-lam', query: { classify: job.workingForm } }"
+                                            class="mt-2" :color="website.color.tealMain.color" dark depressed small>
+                                            <span style="color: white">{{ job.workingForm }}</span>
+                                        </v-btn>
                                         <p class="float-end">
                                             <v-btn :to="{ path: `/tim-viec-lam/review-viec-lam/${job.slug}` }"
                                                 @click.native="scrollToTop()" text>
@@ -603,7 +615,7 @@ p {
 .blog-card {
     display: flex;
     flex-direction: column;
-    margin: -2rem auto;
+    margin: -1.5rem auto;
     margin-bottom: 1.6%;
     background: #fff;
     line-height: 1.1;

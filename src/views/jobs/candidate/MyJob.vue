@@ -1,127 +1,175 @@
 <template>
     <div class="">
         <v-container>
-            <v-card :loading="isLoadingCard">
-                <v-sheet :color="website.color.tealMain.color" dark>
-                    <div class="p-3">
-                        <h5>Việc làm đã lưu</h5>
-                        <div>
-                            Xem lại danh sách những việc làm mà bạn đã lưu trước đó. Ứng tuyển ngay để không bỏ
-                            lỡ cơ hội nghề nghiệp dành cho bạn.
-                        </div>
-                        <v-divider v-if="!isLoading"></v-divider>
-                        <div v-if="favorites.length != 0 && !isLoading">Bạn đã lưu <b :style="website.color.yellowSubColor">{{ favorites.length }}</b> việc làm</div>
-                        <div v-if="favorites.length == 0 && !isLoading">Hiện tại bạn không lưu việc làm nào</div>
-                    </div>
-                </v-sheet>
-                <div class="p-2">
-                    <v-row class="mt-5">
-                        <v-col cols="12" v-if="isLoading">
-                            <center>
-                                <v-progress-circular :width="3" color="green" indeterminate></v-progress-circular>
-                                <p>Đang tải dữ liệu cá nhân</p>
-                            </center>
-                        </v-col>
-                        <v-col cols="12" v-if="favorites.length == 0 && !isLoading">
-                            <center style="margin-bottom: 50px;">
-                                <img src="https://www.topcv.vn/v4/image/empty.png" />
-                                <p>Bạn chưa lưu công việc nào!</p>
-                                <v-btn :to="{ path: '/tim-viec-lam/tat-ca-viec-lam' }" depressed dark
-                                    :color="website.color.tealMain.color">Tìm việc ngay</v-btn>
-                            </center>
-                        </v-col>
-                        <v-col cols="12" v-for="favorite in favorites" :key="favorite._id">
-                            <div class="blog-card" :style="`border: 1px dashed ${website.color.redMain.color};`"
-                                v-if="favorites.length != 0 && !isLoading">
-                                <div class="meta">
-                                    <div class="photo"
-                                        :style="`background-image: url(${favorite.idJob.idCompany.srcLogo})`">
+            <LoadingComponent :website="website" content="Đang tải dữ liệu trang" v-if="isLoadingPage" />
+            <div v-if="!isLoadingPage">
+                <LoadingNotFoutComponent :website="website" v-if="!isLoadingLogin" />
+                <v-row class="mt-2" v-if="isLoadingLogin">
+                    <v-col cols="12" md="8">
+                        <v-card :loading="isLoadingCard" class="border">
+                            <v-sheet :color="website.color.tealMain.color" dark>
+                                <div class="p-3">
+                                    <h5>Việc làm đã lưu</h5>
+                                    <div>
+                                        Xem lại danh sách những việc làm mà bạn đã lưu trước đó. Ứng tuyển ngay để không
+                                        bỏ
+                                        lỡ cơ hội nghề nghiệp dành cho bạn.
                                     </div>
-                                    <ul class="details">
-                                        <li>
-                                            <i class="mdi mdi-account-circle">&nbsp;</i>
-                                            Còn lại: {{ favorite.idJob.numberOfRecruitments }} ứng viên
-                                        </li>
-                                        <li class="mt-2"><i class="mdi mdi-calendar-clock">&nbsp;</i>Ngày hết
-                                            hạn:
-                                            {{ formatDate(favorite.idJob.deadline) }}</li>
-                                        <li class="mt-2">
-                                            <i class="mdi mdi-cog">&nbsp;</i>{{ favorite.idJob.mainJob }}
-                                        </li>
-                                    </ul>
+                                    <v-divider v-if="!isLoading"></v-divider>
+                                    <div v-if="resultQueryFavorites.length != 0 && !isLoading">Bạn đã lưu <b
+                                            :style="website.color.yellowSubColor">{{ resultQueryFavorites.length }}</b>
+                                        việc làm
+                                    </div>
+                                    <div v-if="resultQueryFavorites.length == 0 && !isLoading">Hiện tại bạn không lưu
+                                        việc làm nào
+                                    </div>
                                 </div>
-                                <div class="description">
-                                    <h1>{{ favorite.idJob.name }}
-                                        <span :style="website.color.tealMain">
-                                            ({{ favorite.idJob.vacancies }})
-                                        </span>
-                                        - Ngày lưu: {{ formatDate(favorite.dateCreate) }}
-                                    </h1>
-                                    <div class="mt-2"><i><a>{{ favorite.idJob.idCompany.name }}</a></i></div>
-                                    <h2 class="salary" :style="website.color.redMain">
-                                        <a @click="linkLogin()" v-if="!user">Đăng nhập để xem lương</a>
-                                        <div v-if="user">
-                                            <span>{{ favorite.idJob.salaryType ? "" : "Trống" }}</span>
-                                            <span v-if="favorite.idJob.salaryType == 'Trong khoảng'">
-                                                <span>
-                                                    {{ favorite.idJob.salaryfrom ? favorite.idJob.salaryfrom : "..." }}
-                                                    -
-                                                    {{ favorite.idJob.salaryTo ? favorite.idJob.salaryTo : "..." }}
-                                                    {{ favorite.idJob.currency == "VNĐ" ? "triệu" : "$" }}
-                                                </span>
-                                            </span>
-                                            <span v-if="favorite.idJob.salaryType == 'Thỏa thuận'">
-                                                <span>Thỏa thuận</span>
-                                            </span>
-                                            <span v-if="favorite.idJob.salaryType == 'Từ'">
-                                                <span>
-                                                    Từ
-                                                    {{ favorite.idJob.salaryfrom ? favorite.idJob.salaryfrom : "..." }}
-                                                    {{ favorite.idJob.currency == "VNĐ" ? "triệu" : "$" }}
-                                                    trở lên
-                                                </span>
-                                            </span>
-                                            <span v-if="favorite.idJob.salaryType == 'Đến'">
-                                                <span>
-                                                    Lên đến
-                                                    {{ favorite.idJob.salaryTo ? favorite.idJob.salaryTo : "..." }}
-                                                    {{ favorite.idJob.currency == "VNĐ" ? "triệu" : "$" }}
-                                                </span>
-                                            </span>
+                            </v-sheet>
+                            <div class="p-2">
+                                <v-row class="mt-1">
+                                    <v-col cols="12" md="6">
+                                        <v-text-field v-model="searchQueryFavorites" dense outlined
+                                            placeholder="Tên công ty, tên việc làm" hide-details="auto"
+                                            prepend-inner-icon="mdi-magnify"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <LoadingComponent :website="website" content="Đang tải dữ liệu cá nhân"
+                                            v-if="isLoading" />
+                                    </v-col>
+                                    <v-col cols="12" v-if="resultQueryFavorites.length == 0 && !isLoading">
+                                        <center style="margin-bottom: 50px;">
+                                            <img src="https://www.topcv.vn/v4/image/empty.png" />
+                                            <p>Bạn chưa lưu công việc nào!</p>
+                                            <v-btn :to="{ path: '/tim-viec-lam/tat-ca-viec-lam' }" depressed dark
+                                                :color="website.color.tealMain.color">Tìm việc ngay</v-btn>
+                                        </center>
+                                    </v-col>
+                                    <v-col cols="12" v-for="favorite in resultQueryFavorites" :key="favorite._id">
+                                        <div class="blog-card"
+                                            :style="`border: 1px dashed ${website.color.redMain.color};`"
+                                            v-if="favorites.length != 0 && !isLoading">
+                                            <div class="meta">
+                                                <div class="photo"
+                                                    :style="`background-image: url(${favorite.idJob.idCompany.srcLogo})`">
+                                                </div>
+                                                <ul class="details">
+                                                    <li>
+                                                        <i class="mdi mdi-account-circle">&nbsp;</i>
+                                                        Còn lại: {{ favorite.idJob.numberOfRecruitments }} ứng viên
+                                                    </li>
+                                                    <li class="mt-2"><i class="mdi mdi-calendar-clock">&nbsp;</i>Ngày
+                                                        hết
+                                                        hạn:
+                                                        {{ formatDate(favorite.idJob.deadline) }}</li>
+                                                    <li class="mt-2">
+                                                        <i class="mdi mdi-cog">&nbsp;</i>{{ favorite.idJob.mainJob }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="description">
+                                                <h1>
+                                                    <router-link style="text-decoration: none;"
+                                                        :to="{ path: `/tim-viec-lam/review-viec-lam/${favorite.idJob.slug}` }"
+                                                        @click.native="scrollToTop()">
+                                                        {{ favorite.idJob.name }}
+                                                        <span :style="website.color.tealMain">
+                                                            ({{ favorite.idJob.vacancies }})
+                                                        </span>
+                                                        -
+                                                        <span :style="website.color.tealMain">Ngày lưu: {{
+                                                                formatDate(favorite.dateCreate)
+                                                        }}</span>
+                                                    </router-link>
+
+                                                </h1>
+                                                <div class="mt-2"><i><a>{{ favorite.idJob.idCompany.name }}</a></i>
+                                                </div>
+                                                <h2 class="salary" :style="website.color.redMain">
+                                                    <a @click="linkLogin()" v-if="!user">Đăng nhập để xem lương</a>
+                                                    <div v-if="user">
+                                                        <span>{{ favorite.idJob.salaryType ? "" : "Trống" }}</span>
+                                                        <span v-if="favorite.idJob.salaryType == 'Trong khoảng'">
+                                                            <span>
+                                                                {{ favorite.idJob.salaryfrom ? favorite.idJob.salaryfrom
+                                                                        :
+                                                                        "..."
+                                                                }}
+                                                                -
+                                                                {{ favorite.idJob.salaryTo ? favorite.idJob.salaryTo :
+                                                                        "..."
+                                                                }}
+                                                                {{ favorite.idJob.currency == "VNĐ" ? "triệu" : "$" }}
+                                                            </span>
+                                                        </span>
+                                                        <span v-if="favorite.idJob.salaryType == 'Thỏa thuận'">
+                                                            <span>Thỏa thuận</span>
+                                                        </span>
+                                                        <span v-if="favorite.idJob.salaryType == 'Từ'">
+                                                            <span>
+                                                                Từ
+                                                                {{ favorite.idJob.salaryfrom ? favorite.idJob.salaryfrom
+                                                                        :
+                                                                        "..."
+                                                                }}
+                                                                {{ favorite.idJob.currency == "VNĐ" ? "triệu" : "$" }}
+                                                                trở lên
+                                                            </span>
+                                                        </span>
+                                                        <span v-if="favorite.idJob.salaryType == 'Đến'">
+                                                            <span>
+                                                                Lên đến
+                                                                {{ favorite.idJob.salaryTo ? favorite.idJob.salaryTo :
+                                                                        "..."
+                                                                }}
+                                                                {{ favorite.idJob.currency == "VNĐ" ? "triệu" : "$" }}
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </h2>
+                                                <p>
+                                                    <i class="mdi mdi-map-marker"></i>
+                                                    {{ favorite.idJob.jobLocation }} ({{ favorite.idJob.workLocation }})
+                                                </p>
+                                                <v-btn :to="{path: '/tim-viec-lam/tat-ca-viec-lam', query: { classify: favorite.idJob.workingForm}}" class="mt-2" :color="website.color.tealMain.color" dark depressed
+                                                    small>
+                                                    <span style="color: white">{{ favorite.idJob.workingForm }}</span>
+                                                </v-btn>
+                                                <p class="float-end">
+                                                    <v-btn
+                                                        :to="{ path: `/tim-viec-lam/review-viec-lam/${favorite.idJob.slug}` }"
+                                                        @click.native="scrollToTop()" text>
+                                                        <v-icon>mdi-arrow-collapse-right</v-icon>
+                                                        &nbsp;
+                                                        Ứng tuyển ngay
+                                                    </v-btn>
+                                                    <v-btn :loading="isLoadingBtn" @click="deleteFavoriteJob(favorite)"
+                                                        :color="website.color.redMain.color" text>
+                                                        <v-icon>mdi-trash-can-outline</v-icon>
+                                                        &nbsp;
+                                                        Bỏ lưu
+                                                    </v-btn>
+                                                </p>
+                                            </div>
                                         </div>
-                                    </h2>
-                                    <p>
-                                        <i class="mdi mdi-map-marker"></i>
-                                        {{ favorite.idJob.jobLocation }} ({{ favorite.idJob.workLocation }})
-                                    </p>
-                                    <v-btn class="mt-2" :color="website.color.tealMain.color" dark depressed small>
-                                        {{ favorite.idJob.workingForm }}
-                                    </v-btn>
-                                    <p class="float-end">
-                                        <v-btn :to="{ path: `/tim-viec-lam/review-viec-lam/${favorite.idJob.slug}` }"
-                                            @click.native="scrollToTop()" text>
-                                            <v-icon>mdi-arrow-collapse-right</v-icon>
-                                            &nbsp;
-                                            Ứng tuyển ngay
-                                        </v-btn>
-                                        <v-btn @click="deleteFavoriteJob(favorite)" :color="website.color.redMain.color"
-                                            text>
-                                            <v-icon>mdi-trash-can-outline</v-icon>
-                                            &nbsp;
-                                            Bỏ lưu
-                                        </v-btn>
-                                    </p>
-                                </div>
+                                    </v-col>
+                                </v-row>
                             </div>
-                        </v-col>
-                    </v-row>
-                </div>
-            </v-card>
+                        </v-card>
+                    </v-col>
+                    <v-col cols="12" md="4">
+                        <ProfileComponent :user="user" :website="website" />
+                    </v-col>
+                </v-row>
+            </div>
         </v-container>
     </div>
 </template>
 
 <script>
+import ProfileComponent from '../../../components/candidate/Profile.vue';
+import LoadingNotFoutComponent from '../../../components/loading/LoadingNotFout.vue';
+import LoadingComponent from '../../../components/loading/Loading.vue';
+
 import Favorite from '../../../apis/favorite.api';
 
 import Format from '../../../modules/Format.module';
@@ -130,22 +178,50 @@ export default {
     name: 'MyJob',
     async created() {
 
-        if(!this.user)
-        {
-            window.location.href = '/khong-ton-tai-404';
+        if (!this.user) {
+            this.isLoadingLogin = false;
         }
 
         const favorites = await Favorite.getFavoriteJob({ key: 'favorite' });
         this.favorites = favorites.data;
+
+        this.isLoadingPage = false;
         this.isLoading = false;
+        this.isLoadingLogin = true;
     },
     data() {
         return {
             favorites: [],
             editedIndex: -1,
             isLoadingCard: false,
-            isLoading: true
+            isLoading: true,
+            isLoadingBtn: false,
+            isLoadingPage: true,
+            isLoadingLogin: true,
+            searchQueryFavorites: null
         }
+    },
+    components: {
+        ProfileComponent,
+        LoadingNotFoutComponent,
+        LoadingComponent
+    },
+    computed: {
+        resultQueryFavorites() {
+            this.isLoading = true;
+            setTimeout(() => { this.isLoading = false; }, 1000)
+            if (this.searchQueryFavorites) {
+                return this.favorites.filter((item) => {
+                    return this.searchQueryFavorites.toLowerCase().split(" ").every(
+                        (v) =>
+                            item.idJob.name.toLowerCase().includes(v) ||
+                            item.idJob.idCompany.name.toLowerCase().includes(v)
+                    )
+                });
+            } else {
+                return this.favorites;
+            }
+        },
     },
     methods: {
         formatDate(date) {
@@ -154,6 +230,7 @@ export default {
         async deleteFavoriteJob(item) {
             let that = this
             that.isLoadingCard = true;
+            that.isLoadingBtn = true;
             that.editedIndex = that.favorites.indexOf(item);
             that.editedItem = Object.assign({}, item);
 
@@ -165,9 +242,11 @@ export default {
                 if (!deleteFavoriteJob.error) {
                     that.$emit('showSnackbar', { snackbar: true, text: deleteFavoriteJob.message });
                     that.isLoadingCard = false;
+                    that.isLoadingBtn = false;
                 } else {
                     that.$emit('showSnackbar', { snackbar: true, text: deleteFavoriteJob.message });
                     that.isLoadingCard = false;
+                    that.isLoadingBtn = false;
                 }
             }
 
@@ -178,6 +257,14 @@ export default {
 </script>
 
 <style scoped>
+.container {
+    max-width: 1250px;
+}
+
+.v-card {
+    box-shadow: none !important;
+}
+
 p {
     font-size: 15px;
 }
