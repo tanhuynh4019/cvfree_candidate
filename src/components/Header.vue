@@ -6,7 +6,7 @@
                 <v-container>
                     <v-row>
                         <v-col cols="3">
-                            <router-link :to="{ path: '/' }">
+                            <router-link :to="{ path: '/' }" @click.native="scrollToTop()">
                                 <img :src="website.srcLogo" />
                             </router-link>
                         </v-col>
@@ -131,6 +131,9 @@ export default {
     methods: {
         linkLogin() {
             window.location.href = '/dang-nhap';
+        },
+        scrollToTop() {
+            window.scrollTo(0, 0);
         },
         onResize() {
             this.windowSize = { x: window.innerWidth, y: window.innerHeight };

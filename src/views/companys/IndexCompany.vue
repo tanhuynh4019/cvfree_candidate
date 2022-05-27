@@ -12,8 +12,9 @@
                             <div class="mt-10">
                                 <v-row>
                                     <v-col cols="12">
-                                        <v-text-field :color="website.color.tealMain.color" :height="70" clearable flat
-                                            solo hide-details :prepend-inner-icon="'mdi-ev-plug-type1'"
+                                        <v-text-field v-model="formSearch.value.search"
+                                            :color="website.color.tealMain.color" :height="70" clearable flat solo
+                                            hide-details :prepend-inner-icon="'mdi-magnify'"
                                             :label="'Tìm kiếm công ty'">
                                             <template v-slot:append>
                                                 <v-fade-transition leave-absolute>
@@ -26,16 +27,12 @@
                                         </v-text-field>
                                     </v-col>
                                     <v-col cols="12" sm="6">
-                                        <v-autocomplete :color="website.color.tealMain.colo" class="mt-1"
-                                            :items="carrers" :height="40" flat solo hide-details
-                                            :prepend-inner-icon="'mdi-ev-plug-type1'" :label="'Nghành nghề'">
-                                        </v-autocomplete>
+                                        <SelectCarrersComponent :website="website" :solo="true"
+                                            @modelCarrer="formSearch.value.carrer = $event" />
                                     </v-col>
                                     <v-col cols="12" sm="6">
-                                        <v-autocomplete :color="website.color.tealMain.colo" class="mt-1"
-                                            :items="provinces" :height="40" flat solo hide-details
-                                            :prepend-inner-icon="'mdi-ev-plug-type1'" :label="'Tỉnh thành'">
-                                        </v-autocomplete>
+                                        <SelectProvicesComponent :website="website" :solo="true"
+                                            @modelProvince="formSearch.value.province = $event" />
                                     </v-col>
                                 </v-row>
                             </div>
@@ -81,6 +78,9 @@
 import CompanyApi from "../../apis/company.api";
 
 import LoadingComponent from '../../components/loading/Loading.vue';
+import SelectCarrersComponent from "../../components/common/SelectCarrers.vue";
+import SelectProvicesComponent from "../../components/common/SelectProvices.vue";
+
 export default {
     name: 'IndexCompany',
     props: ['website', 'user'],
@@ -91,18 +91,39 @@ export default {
         this.isLoadingPage = false;
     },
     components: {
-        LoadingComponent
+        LoadingComponent,
+        SelectCarrersComponent,
+        SelectProvicesComponent
     },
     data() {
         return {
             companies: [],
             isLoadingPage: true,
+            formSearch: {
+                value: {
+                    search: '',
+                    carrer: '',
+                    province: ''
+                }
+            }
         }
     },
     methods: {
         scrollToTop() {
             window.scrollTo(0, 0);
         },
+        searchJob() {
+            let that = this;
+            that.$router.push({
+                name: 'SearchCompany',
+                query: {
+                    search: that.formSearch.value.search,
+                    carrer: that.formSearch.value.carrer,
+                    province: that.formSearch.value.province
+                }
+            })
+            window.scrollTo(0, 0);
+        }
     }
 }
 </script>

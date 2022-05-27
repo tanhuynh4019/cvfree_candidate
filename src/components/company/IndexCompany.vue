@@ -156,12 +156,6 @@
                                             <v-icon>mdi-close</v-icon>
                                         </v-btn>
                                         <v-toolbar-title>Tìm kiếm nâng cao</v-toolbar-title>
-                                        <v-spacer></v-spacer>
-                                        <v-toolbar-items>
-                                            <v-btn dark text @click="dialog = false">
-                                                Tìm kiếm
-                                            </v-btn>
-                                        </v-toolbar-items>
                                     </v-toolbar>
                                     <v-list three-line subheader>
                                         <div class="p-2">

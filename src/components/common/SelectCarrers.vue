@@ -1,5 +1,5 @@
 <template>
-    <v-autocomplete @change="changeCarrer()" v-model="valueCarrer" class="w-100" prepend-inner-icon="mdi-cog-outline" :color="website.color.tealMain.color"
+    <v-autocomplete @change="changeCarrer()" :solo="solo" v-model="valueCarrer" class="w-100" prepend-inner-icon="mdi-cog-outline" :color="website.color.tealMain.color"
         placeholder="Nghành nghề.." outlined dense hide-details="auto" :items="carrers">
     </v-autocomplete>
 </template>
@@ -8,7 +8,7 @@
 import TermApi from '../../apis/term.api';
 export default {
     name: 'SelectCarrers',
-    props: ['website'],
+    props: ['website', 'solo'],
     async created() {
         const carrer = await TermApi.getTerm({ key: 'term', type: '1' });
         this.carrers = carrer.data;
