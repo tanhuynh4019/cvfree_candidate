@@ -197,11 +197,18 @@ export default {
                     link: "/",
                     list: [
                         {
-                            name: "Danh sách công ty",
+                            name: "Tìm công ty",
+                            link: {
+                                path: '/tim-cong-ty/tat-ca-cong-ty'
+                            },
+                            icon: "mdi-office-building",
+                        },
+                        {
+                            name: "Danh sách top công ty",
                             link: {
                                 path: '/cong-ty/danh-sach-cong-ty'
                             },
-                            icon: "mdi-office-building",
+                            icon: "mdi-text-box-search",
                         },
                         {
                             name: "Top công ty",

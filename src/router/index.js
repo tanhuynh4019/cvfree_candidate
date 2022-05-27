@@ -19,6 +19,7 @@ import Error404 from '../views/Errors/Error404.vue'
 //* Company
 import ReviewCompany from '../views/companys/ReviewCompany.vue'
 import IndexCompany from '../views/companys/IndexCompany.vue'
+import SearchCompany from '../views/companys/SearchCompany.vue'
 
 Vue.use(VueRouter)
 
@@ -82,13 +83,9 @@ const routes = [{
         component: IndexCompany
     },
     {
-        path: '/about',
-        name: 'about',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-            import ( /* webpackChunkName: "about" */ '../views/AboutView.vue')
+        path: '/tim-cong-ty/tat-ca-cong-ty',
+        name: 'SearchCompany',
+        component: SearchCompany
     }
 ]
 

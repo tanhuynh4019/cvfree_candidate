@@ -17,11 +17,12 @@ export default class Company {
 
     static async getCompany(query) {
         try {
-            const { key, status } = query
+            const { key, status, limit } = query
             const res = await axios.get(`${url}`, {
                 params: {
                     status,
-                    key
+                    key,
+                    limit
                 }
             });
             return res.data;
