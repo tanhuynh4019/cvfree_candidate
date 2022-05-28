@@ -4,11 +4,12 @@ export default class Job {
 
     static async getJob(query) {
         try {
-            const { key, status } = query;
+            const { key, status, limit } = query;
             const res = await axios.get(`${url}`, {
                 params: {
                     key,
-                    status
+                    status,
+                    limit
                 }
             });
             return res.data;
