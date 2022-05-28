@@ -4,7 +4,7 @@
       <BannerHome :website="website" />
     </div>
     <div class="bg-white">
-      <IndexJobTop :website="website" />
+      <IndexJobTop :website="website" :user="user" />
     </div>
     <div>
       <PaSystem :website="website" />
@@ -34,7 +34,7 @@ import IndexJob from '../components/job/IndexJob.vue';
 import CompanySlider from '../components/company/CompanySlider.vue'
 export default {
   name: "Home",
-  props: ['website'],
+  props: ['website', 'user'],
   components: {
     BannerHome,
     IndexJobTop,
