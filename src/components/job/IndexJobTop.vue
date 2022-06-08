@@ -23,7 +23,7 @@
             </div>
 
             <div class="mt-5">
-                <IndexJobStatusComponent status="the_best" limit="12" :website="website" :user="user" />
+                <IndexJobStatusComponent :website="website" :user="user" />
                 <p class="mt-10 text-center"  v-if="isLaptop">
                     {{ website.job.textAll }} <u :style="website.color.redMain">{{ website.job.linkTextAll }}</u>
                 </p>
