@@ -128,7 +128,6 @@
 
 <script>
 import Format from "../../modules/Format.module";
-
 import MenuAccount from "../../components/menu/MenuAccount.vue";
 export default {
   name: "ChangePassword",
@@ -186,7 +185,6 @@ export default {
         name: "Error404",
       });
     }
-
     if (this.statusPage != "doi-mat-khau") {
       this.$router.push({
         name: "Error404",
