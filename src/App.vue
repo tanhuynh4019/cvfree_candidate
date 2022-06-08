@@ -3,7 +3,8 @@
     <Header v-if="showMenu" :website="website" :offset_top="offsetTop" :user="user" />
 
     <v-main class="scroll-y" v-scroll="onScroll">
-      <router-view :website="website" :user="user" :offset_top="offsetTop" @showMenu="showMenu = $event" @showSnackbar="snackbar = $event" />
+      <router-view :website="website" :user="user" :offset_top="offsetTop" @showMenu="showMenu = $event"
+        @showSnackbar="snackbar = $event" />
       <Footer v-if="showMenu" :website="website" />
       <DialogCheckEmail :website="website" :user="user" v-if="user && !user.isEmail" @showSnackbar="snackbar = $event"
         @showUser="user = $event" />
