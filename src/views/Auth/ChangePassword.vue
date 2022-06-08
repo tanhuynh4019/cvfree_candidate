@@ -48,7 +48,7 @@
                     <v-form
                       class="mt-5"
                       v-model="formAuth.valid"
-                      ref="formAdmin"
+                      ref="formAuth"
                     >
                       <v-text-field
                         prepend-inner-icon="mdi-email-mark-as-unread"
@@ -90,8 +90,8 @@
                       </v-text-field>
 
                       <v-text-field
-                        :rules="formAuth.validate.comfirmPasswordNew"
-                        v-model="formAuth.value.comfirmPasswordNew"
+                        :rules="formAuth.validate.confirmPasswordNew"
+                        v-model="formAuth.value.confirmPasswordNew"
                         :append-icon="
                           showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'
                         "
@@ -109,6 +109,7 @@
                       </v-text-field>
 
                       <v-btn
+                        @click="changePassword()"
                         depressed
                         :color="website.color.tealMain.color"
                         dark
@@ -127,6 +128,8 @@
 </template>
 
 <script>
+import AuthApi from "../../apis/auth.api";
+
 import Format from "../../modules/Format.module";
 import MenuAccount from "../../components/menu/MenuAccount.vue";
 export default {
@@ -153,22 +156,22 @@ export default {
             (v) => !!v || "Mật khẩu cũ không được để trống!",
             (v) =>
               (v.length >= 5 && v.length <= 250) ||
-              "Mật khẩu phải từ 5 đến 250 ký !",
+              "Mật khẩu phải từ 5 đến 250 ký tự !",
           ],
           passwordNew: [
             (v) => !!v || "Mật khẩu mới không được để trống!",
             (v) =>
               (v.length >= 5 && v.length <= 250) ||
-              "Mật khẩu mới phải từ 5 đến 250 ký !",
+              "Mật khẩu mới phải từ 5 đến 250 ký tự !",
           ],
-          comfirmPasswordNew: [
+          confirmPasswordNew: [
             (v) => !!v || "Xác nhận mật khẩu không được để trống!",
             (v) =>
               this.formAuth.value.passwordNew == v ||
               "Xác nhận mật khẩu không trùng khớp!",
             (v) =>
               (v.length >= 5 && v.length <= 250) ||
-              "Xác nhận mật khẩu mới phải từ 5 đến 250 ký tự!",
+              "Xác nhận mật khẩu mới phải từ 5 đến 250 ký tự !",
           ],
         },
       },
@@ -195,6 +198,37 @@ export default {
     this.onResize();
   },
   methods: {
+    async changePassword() {
+      let that = this;
+
+      console.log(that.formAuth.value);
+      const formData = new FormData();
+      const isValid = that.$refs.formAuth.validate();
+      if (isValid) {
+        that.isLoading = true;
+        formData.append("passwordOld", that.formAuth.value.passwordOld);
+        formData.append("passwordNew", that.formAuth.value.passwordNew);
+        formData.append(
+          "confirmPasswordNew",
+          that.formAuth.value.confirmPasswordNew
+        );
+
+        const changePassword = await AuthApi.changePassword(formData, {
+          key: "auth",
+        });
+        if (!changePassword.error) {
+          // that.snackbar = true;
+          that.text = changePassword.message;
+          that.isLoading = false;
+          localStorage.setItem("token", changePassword.data.token);
+          window.location.href = "/";
+        } else {
+          // that.snackbar = true;
+          that.text = changePassword.message;
+          that.isLoading = false;
+        }
+      }
+    },
     formatDate(date) {
       return Format.formatDate(date, "vi");
     },

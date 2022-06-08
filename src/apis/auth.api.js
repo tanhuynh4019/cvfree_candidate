@@ -16,6 +16,23 @@ export default class Auth {
         }
     }
 
+    static async changePassword(body, query) {
+        try {
+            const { key } = query;
+            const res = await axios.patch(`${url}/change-password`, body, {
+                params: {
+                    key
+                },
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('tkc')}`
+                }
+            });
+            return res.data;
+        } catch (error) {
+            return error.response.data;
+        }
+    }
+
     static async secret(query) {
         try {
             const { key } = query;
